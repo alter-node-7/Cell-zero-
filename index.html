@@ -31,6 +31,26 @@
             color: #00ffff; text-decoration: none; border: 1px solid #00ffff; 
             padding: 4px 8px; font-size: 0.6rem; background: rgba(0, 255, 255, 0.1);
         }
+        @keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.7; transform: scale(1.001); }
+    100% { opacity: 1; }
+}
+
+h1 { 
+    animation: pulse 4s infinite; 
+    text-shadow: 2px 0 #ff00ff, -2px 0 #00ffff;
+    // SUBJECT_OBS_01: <span class="status-alert" style="color:red">DETACHED / UNAUTHORIZED</span><br>
+    
+}
+
+
+/* Red status ko glow karne ke liye */
+.status-alert {
+    animation: pulse 0.5s infinite;
+    text-shadow: 0 0 5px red;
+}
+        
     </style>
 </head>
 <body>
@@ -39,7 +59,7 @@
     <div class="header">
         <div>
             // SIGNAL: RECOVERED<br>
-            // SUBJECT_OBS_01: <span style="color:red">DETACHED</span><br>
+            // SUBJECT_OBS_01: <span class="status-alert" style="color:red">DETACHED / UNAUTHORIZED</span><br>
             // FABRIC_INTEGRITY: 44.2%
         </div>
         <div style="text-align: right;">
@@ -58,5 +78,24 @@
         ERROR: MEMORY_SYNC_FAILED... <br>
         REWRITING_REALITY_LOGS...
     </div>
+    <audio id="bg-noise" src="https://www.soundjay.com/communication/sounds/static-noise-01.mp3" loop></audio>
+
+<script>
+    // Click karne par static sound shuru hogi
+    document.body.onclick = function() {
+        var audio = document.getElementById('bg-noise');
+        audio.play();
+        audio.volume = 0.05; // Low volume for immersion
+    }
+
+    // Har 8-12 seconds mein screen halke se glitch karegi
+    setInterval(() => {
+        document.body.style.filter = "invert(1) hue-rotate(90deg)";
+        setTimeout(() => {
+            document.body.style.filter = "none";
+        }, 50);
+    }, Math.random() * 5000 + 8000);
+</script>
+
 </body>
 </html>
