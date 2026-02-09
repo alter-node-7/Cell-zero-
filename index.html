@@ -44,13 +44,52 @@ h1 {
     
 }
 
-
+.coords { position: relative; cursor: help; }
+.coords:hover::after {
+    content: "OBSERVATION: Subject walked through a concrete wall in Sector 17. The material behaved like a curtain.";
+    position: absolute; top: 20px; left: 50%; transform: translateX(-50%);
+    background: rgba(255, 0, 255, 0.9); color: black; padding: 10px;
+    font-size: 0.6rem; width: 200px; z-index: 100; border: 1px solid white;
+}
+        
 /* Red status ko glow karne ke liye */
 .status-alert {
     animation: pulse 0.5s infinite;
     text-shadow: 0 0 5px red;
+    .interference {
+    position: fixed;
+    font-size: 0.5rem;
+    color: #ff00ff;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 5;
+    text-transform: uppercase;
 }
-        
+@keyframes vanish {
+    0% { opacity: 0.8; }
+    100% { opacity: 0; transform: translateY(-10px); }
+}
+.show-text { animation: vanish 2s forwards; }
+    
+}
+    const messages = [
+    "// THE CLOTH IS COLD //",
+    "// STOP LOOKING AT THE SEAMS //",
+    "// ERROR: 3 SECONDS OF REALITY MISSING //",
+    "// VOID_LEAK_DETECTED //"
+];
+
+setInterval(() => {
+    const div = document.createElement('div');
+    div.className = 'interference';
+    div.style.top = Math.random() * 80 + 10 + "%";
+    div.style.left = Math.random() * 80 + 10 + "%";
+    div.innerText = messages[Math.floor(Math.random() * messages.length)];
+    document.body.appendChild(div);
+    div.classList.add('show-text');
+    setTimeout(() => div.remove(), 2000);
+}, 4000);
+    
     </style>
 </head>
 <body>
@@ -81,21 +120,25 @@ h1 {
     <audio id="bg-noise" src="https://www.soundjay.com/communication/sounds/static-noise-01.mp3" loop></audio>
 
 <script>
-    // Click karne par static sound shuru hogi
-    document.body.onclick = function() {
-        var audio = document.getElementById('bg-noise');
-        audio.play();
-        audio.volume = 0.05; // Low volume for immersion
-    }
+    const audio = document.getElementById('bg-noise');
+    
+    // This ensures that the VERY FIRST tap on the screen starts the hum
+    document.addEventListener('click', function() {
+        if (audio.paused) {
+            audio.play().catch(e => console.log("Audio play blocked"));
+            audio.volume = 0.15; // Increased volume slightly
+        }
+    }, { once: true }); // Only runs once to trigger the start
 
-    // Har 8-12 seconds mein screen halke se glitch karegi
+    // The Glitch Logic
     setInterval(() => {
-        document.body.style.filter = "invert(1) hue-rotate(90deg)";
+        document.body.style.filter = "invert(1) contrast(150%) hue-rotate(180deg)";
         setTimeout(() => {
             document.body.style.filter = "none";
-        }, 50);
-    }, Math.random() * 5000 + 8000);
+        }, 80);
+    }, Math.random() * 7000 + 5000);
 </script>
+
 
 </body>
 </html>
