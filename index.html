@@ -122,17 +122,15 @@ setInterval(() => {
 <script>
     const audio = document.getElementById('bg-noise');
 
-// Sabse pehla interaction (click/tap) sound ko "force start" karega
-document.addEventListener('click', function() {
-    if (audio.paused) {
-        audio.play().then(() => {
-            audio.volume = 0.2; // Volume thoda upar rakha hai taaki feel aaye
-            console.log("Signal Recovered: Audio Active");
-        }).catch(err => {
-            console.log("Still blocked: Tap anywhere on screen again");
-        });
-    }
-}, { once: true }); // Sirf ek baar trigger hoga start karne ke liye
+    // First interaction starts the audio signal
+    window.onclick = function() {
+        if (audio.paused) {
+            audio.play().then(() => {
+                audio.volume = 0.2;
+                console.log("SIGNAL_RECOVERED: Audio Active");
+            }).catch(e => console.log("Audio still blocked"));
+        }
+    };
 
     // The Glitch Logic
     setInterval(() => {
