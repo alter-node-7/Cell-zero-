@@ -2,36 +2,89 @@
 <html>
 <head>
     <style>
-        body { background-color: #050505; color: #00FFFF; font-family: 'Courier New', Courier; padding: 20px; overflow: hidden; }
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; }
-        .terminal-text { font-size: 0.8rem; line-height: 1.2; opacity: 0.7; }
-        .center-display { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; }
-        h1 { font-size: 2rem; letter-spacing: 10px; text-shadow: 0 0 10px #00FFFF; margin: 0; }
-        .coordinates { color: #FF00FF; font-size: 0.7rem; margin-top: 10px; }
-        a { color: #00FFFF; text-decoration: none; border: 1px dashed #00FFFF; padding: 5px; font-size: 0.7rem; }
-        a:hover { background: #00FFFF; color: #000; }
+        /* Digital Fabric Overlay */
+        body { 
+            background-color: #050505;
+            /* High-quality cloth texture pattern */
+            background-image: 
+                linear-gradient(rgba(18, 16, 16, 0.4), rgba(0, 0, 0, 0.6)),
+                url("https://www.transparenttextures.com/patterns/dark-linen.png"); 
+            color: #00FFFF; 
+            font-family: 'Courier New', monospace; 
+            padding: 20px; 
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        /* Thread Stitches Effect */
+        .stitched-border {
+            border: 2px dashed rgba(255, 0, 255, 0.4); /* Magenta thread */
+            padding: 15px;
+            height: 90vh;
+            position: relative;
+        }
+
+        /* Fabric Ripple Animation */
+        @keyframes ripple {
+            0% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.01); opacity: 1; }
+            100% { transform: scale(1); opacity: 0.8; }
+        }
+
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; z-index: 2; }
+
+        .center-display { 
+            position: absolute; top: 50%; left: 50%; 
+            transform: translate(-50%, -50%); 
+            text-align: center;
+            animation: ripple 6s infinite ease-in-out;
+        }
+
+        /* Embroidered Text Feel */
+        h1 { 
+            font-size: 2.5rem; 
+            letter-spacing: 12px; 
+            color: #fff;
+            text-shadow: 
+                2px 2px 0px #FF00FF, 
+                -2px -2px 0px #00FFFF; 
+            margin: 0;
+            filter: blur(0.3px); /* Makes it look like thread, not pixels */
+        }
+
+        .law-btn { 
+            color: #00FFFF; text-decoration: none; 
+            border: 1px solid #00FFFF; 
+            padding: 8px 15px; 
+            font-size: 0.8rem;
+            background: rgba(0, 255, 255, 0.05);
+            box-shadow: inset 0 0 10px rgba(0, 255, 255, 0.2);
+        }
+
+        .law-btn:hover { 
+            background: #00FFFF; color: #000; 
+            box-shadow: 0 0 20px #00FFFF;
+        }
     </style>
 </head>
 <body>
-    <div class="grid">
-        <div class="terminal-text">
-            // SUBJECT_OBS_01 DETECTED<br>
-            // PHYSICS_SYNC: FAILED<br>
-            // ATOMIC_RESONANCE: ACTIVE<br><br>
-            // DATA_STATE: NON_RENDERED<br>
-            // SECTOR_12_REDLINE
+    <div class="stitched-border">
+        <div class="grid">
+            <div style="opacity: 0.7; font-size: 0.7rem;">
+                // FABRIC_INTEGRITY: 44.2%<br>
+                // REWEAVING_SECTOR_12...<br>
+                // SUBJECT_OBS_01: <span style="color: #FF00FF;">THREAD_LOOSE</span>
+            </div>
+            <div style="text-align: right;">
+                <a href="observer-laws.html" class="law-btn">[DECRYPT_THE_WEAVE]</a>
+            </div>
         </div>
-        <div class="terminal-text" style="text-align: right;">
-            // TRACE_ID: 81.12.09<br>
-            // COHERENCE: 44.2%<br><br>
-            <a href="observer-laws.html">[DECRYPT_7_LAWS]</a>
-        </div>
-    </div>
 
-    <div class="center-display">
-        <h1>SUBSTRATE_VOID</h1>
-        <div class="coordinates">30.7339° N, 76.7794° E</div>
-        <p style="font-size: 0.6rem; opacity: 0.5;">[ MONITORING_STITCH_RECOVERY ]</p>
+        <div class="center-display">
+            <h1>SUBSTRATE_VOID</h1>
+            <div style="color: #FF00FF; margin-top: 15px; font-weight: bold; font-size: 0.9rem;">CHANDIGARH_NODE_7</div>
+            <p style="font-size: 0.6rem; margin-top: 30px; opacity: 0.5; letter-spacing: 4px;">THE CLOTH IS UNRAVELLING</p>
+        </div>
     </div>
 </body>
 </html>
