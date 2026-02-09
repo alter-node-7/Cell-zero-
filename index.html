@@ -121,14 +121,18 @@ setInterval(() => {
 
 <script>
     const audio = document.getElementById('bg-noise');
-    
-    // This ensures that the VERY FIRST tap on the screen starts the hum
-    document.addEventListener('click', function() {
-        if (audio.paused) {
-            audio.play().catch(e => console.log("Audio play blocked"));
-            audio.volume = 0.15; // Increased volume slightly
-        }
-    }, { once: true }); // Only runs once to trigger the start
+
+// Sabse pehla interaction (click/tap) sound ko "force start" karega
+document.addEventListener('click', function() {
+    if (audio.paused) {
+        audio.play().then(() => {
+            audio.volume = 0.2; // Volume thoda upar rakha hai taaki feel aaye
+            console.log("Signal Recovered: Audio Active");
+        }).catch(err => {
+            console.log("Still blocked: Tap anywhere on screen again");
+        });
+    }
+}, { once: true }); // Sirf ek baar trigger hoga start karne ke liye
 
     // The Glitch Logic
     setInterval(() => {
