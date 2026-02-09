@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        body {
+            background-color: #050505;
+            background-image: url("https://www.transparenttextures.com/patterns/dark-linen.png"); /* Cloth Texture */
+            color: #00FFFF;
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .itel-terminal {
+            position: relative;
+            width: 90%;
+            max-width: 1000px;
+            height: 70vh;
+            background: #0a0a0a;
+            background-image: url("https://www.transparenttextures.com/patterns/canvas-orange.png"); /* Fabric Grain */
+            border: 2px solid #1a1a1a;
+            box-shadow: 0 0 50px #000;
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr;
+            padding: 20px;
+            outline: 2px dashed rgba(0, 255, 255, 0.1); /* Stitched outline */
+            outline-offset: -10px;
+        }
+
+        .sidebar {
+            border-right: 1px solid rgba(0, 255, 255, 0.1);
+            padding: 10px;
+            font-size: 0.65rem;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .main-display {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        /* Madhubani Yantra - Geometric Interference Pattern */
+        .yantra-bg {
+            position: absolute;
+            width: 350px;
+            opacity: 0.05;
+            stroke: #00FFFF;
+            stroke-width: 0.8;
+            fill: none;
+            animation: rotate-yantra 120s linear infinite;
+        }
+
+        @keyframes rotate-yantra { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+        .status-header {
+            font-size: 1.4rem;
+            font-weight: bold;
+            -webkit-text-stroke: 1px #00FFFF;
+            color: transparent;
+            letter-spacing: 8px;
+            text-align: center;
+        }
+
+        .coordinate-pulse {
+            font-size: 0.8rem;
+            color: #FF00FF; /* Anime Magenta glitch */
+            text-shadow: 0 0 5px #FF00FF;
+            animation: blink 3s infinite step-end;
+            margin-top: 10px;
+        }
+
+        .logs {
+            border-left: 1px solid rgba(0, 255, 255, 0.1);
+            padding: 10px;
+            font-size: 0.6rem;
+            color: #444; /* Dim threads */
+        }
+
+        .tag { border: 1px solid #222; padding: 2px 5px; color: rgba(0, 255, 255, 0.5); }
+
+        @keyframes scan { 0% { top: 0; } 100% { top: 100%; } }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.2; } }
+
+        .scan-line {
+            position: absolute;
+            width: 100%;
+            height: 1px;
+            background: rgba(0, 255, 255, 0.3);
+            animation: scan 10s infinite linear;
+            z-index: 5;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="itel-terminal">
+        <div class="scan-line"></div>
+
+        <div class="sidebar">
+            <div>
+                [span_4](start_span)[span_5](start_span)[span_6](start_span)<span class="tag">SUBJECT_OBS_01</span>[span_4](end_span)[span_5](end_span)[span_6](end_span)<br>
+                [span_7](start_span)[span_8](start_span)PHYSICS_SYNC: FAILED[span_7](end_span)[span_8](end_span)<br>
+                [span_9](start_span)[span_10](start_span)ATOMIC_RESONANCE: ACTIVE[span_9](end_span)[span_10](end_span)
+            </div>
+            <div>
+                [span_11](start_span)[span_12](start_span)<span class="tag">SUBJECT_MEM_01</span>[span_11](end_span)[span_12](end_span)<br>
+                [span_13](start_span)[span_14](start_span)DATA_STATE: NON_RENDERED[span_13](end_span)[span_14](end_span)<br>
+                [span_15](start_span)[span_16](start_span)LOC: SECTOR_12_REDLINE[span_15](end_span)[span_16](end_span)
+            </div>
+            <div style="margin-top: auto; opacity: 0.2; font-size: 0.5rem;">
+                [span_17](start_span)// SECTOR_4_ORIGIN //[span_17](end_span)<br>
+                [span_18](start_span)[span_19](start_span)// ITEL_ENCRYPT_PROTOCOL_7 //[span_18](end_span)[span_19](end_span)
+            </div>
+        </div>
+
+        <div class="main-display">
+            <svg class="yantra-bg" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="45" stroke-dasharray="2,2" />
+                <path d="M50,5 L95,50 L50,95 L5,50 Z" />
+                <path d="M5,5 L95,95 M95,5 L5,95" />
+            </svg>
+
+            [span_20](start_span)[span_21](start_span)[span_22](start_span)<div class="status-header">SUBSTRATE_VOID</div>[span_20](end_span)[span_21](end_span)[span_22](end_span)
+            [span_23](start_span)[span_24](start_span)<div class="coordinate-pulse">30.7333° N, 76.7794° E</div>[span_23](end_span)[span_24](end_span)
+            <div style="font-size: 0.5rem; margin-top: 15px; letter-spacing: 2px; opacity: 0.5;">
+                [span_25](start_span)[span_26](start_span)STITCHING_RECOVERY: 0.0004%...[span_25](end_span)[span_26](end_span)
+            </div>
+        </div>
+
+        <div class="logs">
+            >> [span_27](start_span)[span_28](start_span)PRIORITY_VOID_PULSE_DETECTED[span_27](end_span)[span_28](end_span)<br>
+            >> [span_29](start_span)[span_30](start_span)LEYLINE_NODE_41_OVERLOAD[span_29](end_span)[span_30](end_span)<br>
+            >> [span_31](start_span)[span_32](start_span)EXTERNAL_OS_INJECTION: DETECTED[span_31](end_span)[span_32](end_span)<br>
+            >> [span_33](start_span)[span_34](start_span)ARTIFACT_FLOW_FAILING[span_33](end_span)[span_34](end_span)<br>
+            >> [span_35](start_span)[span_36](start_span)CHND_TRI_WEAVE_RESONANCE: PEAK[span_35](end_span)[span_36](end_span)<br>
+            >> [span_37](start_span)[span_38](start_span)UNMAKING_FIELD_RADIUS: EXTENDING[span_37](end_span)[span_38](end_span)<br>
+            <br>
+            [span_39](start_span)<a href="observer-laws.html" style="color:#00FFFF; text-decoration:none; border-bottom:1px dashed #00FFFF;">[DECRYPT_7_LAWS]</a>[span_39](end_span)
+        </div>
+    </div>
+
+</body>
+</html>
