@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CELL_ZERO_MONITOR</title>
+    <title>CELL_ZERO_FABRIC_SCAN</title>
     <style>
-        /* Base Environment */
         body { 
             background: #000; color: #00FFFF; font-family: 'Courier New', monospace; 
             margin: 0; padding: 12px; overflow: hidden; height: 100vh; font-size: 0.6rem;
@@ -13,20 +12,32 @@
             background-size: 20px 20px;
         }
 
-        /* Scanline Overlay for CRT vibe */
+        /* Moving Horizontal Scanline */
+        .scanline {
+            position: absolute; width: 100%; height: 2px;
+            background: rgba(0, 255, 255, 0.2);
+            z-index: 15; top: 0;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+            animation: scan 4s linear infinite;
+            pointer-events: none;
+        }
+        @keyframes scan {
+            0% { top: -5%; }
+            100% { top: 105%; }
+        }
+
+        /* Monitor Overlay with flicker */
         .monitor-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%),
-                        linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+                        linear-gradient(90deg, rgba(255, 0, 0, 0.02), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.02));
             background-size: 100% 3px, 3px 100%; pointer-events: none; z-index: 10;
         }
 
-        /* Telemetry Elements (The 'Span' Look) */
-        .telemetry { color: rgba(0, 255, 255, 0.35); line-height: 1.1; font-size: 0.55rem; }
+        .telemetry { color: rgba(0, 255, 255, 0.3); line-height: 1.1; font-size: 0.52rem; }
         .alert-red { color: #FF0000; font-weight: bold; animation: pulse 0.5s infinite; }
         @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
 
-        /* Navigation & Layout */
         .header { display: flex; justify-content: space-between; position: relative; z-index: 5; }
         .center-box {
             position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
@@ -34,7 +45,7 @@
         }
 
         h1 { 
-            font-size: 1.7rem; letter-spacing: 5px; margin: 0; color: #fff;
+            font-size: 1.8rem; letter-spacing: 6px; margin: 0; color: #fff;
             text-shadow: 2px 0 #ff00ff, -2px 0 #00ffff;
         }
 
@@ -45,9 +56,9 @@
 
         /* Tooltip Logic */
         .coords:active::after, .coords:hover::after {
-            content: "SECTOR_17_REPORT: Matter behaving as non-Newtonian fluid. Concrete behaving like a curtain.";
-            position: absolute; bottom: 25px; left: 50%; transform: translateX(-50%);
-            background: #FF00FF; color: #000; padding: 8px; width: 160px; font-size: 0.5rem; border: 1px solid #fff;
+            content: "SECTOR_17_REPORT: Matter behaving as non-Newtonian fluid. The concrete wall is a curtain.";
+            position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
+            background: #FF00FF; color: #000; padding: 10px; width: 180px; font-size: 0.55rem; border: 1px solid #fff;
         }
 
         .btn { 
@@ -55,19 +66,19 @@
             padding: 3px 6px; background: rgba(0, 255, 255, 0.1); font-size: 0.55rem;
         }
 
-        /* Glitch Effects */
         .interference { position: fixed; color: #ff00ff; font-size: 0.5rem; pointer-events: none; z-index: 10; animation: vanish 2s forwards; }
         @keyframes vanish { 0% { opacity: 0.8; } 100% { opacity: 0; transform: translateY(-20px); } }
     </style>
 </head>
 <body>
+    <div class="scanline"></div>
     <div class="monitor-overlay"></div>
 
     <div class="header">
         <div class="telemetry">
-            [log_0x04] SUBJECT_OBS_01<br>
-            [log_0x07] FABRIC_SYNC: <span class="alert-red">FAILED</span><br>
-            [log_0x09] ATOMIC_RESONANCE: ACTIVE
+            [0x04_WEAVE_SYNC] SUBJECT_OBS_01<br>
+            [0x07_DATA_LOG] FABRIC_SYNC: <span class="alert-red">FAILED</span><br>
+            [0x09_STATE_MON] ATOMIC_DRIFT: DETECTED
         </div>
         <div style="text-align: right;">
             <a href="LOG_ARCHIVE_01.html" style="color:inherit; text-decoration:none;">[ NODE_7_LOG ]</a><br><br>
@@ -76,27 +87,25 @@
     </div>
 
     <div class="center-box">
-        <div class="telemetry">[[ 0x20_START_SCAN ]] [[ 0x21_STITCH_MONITOR ]]</div>
+        <div class="telemetry">[[ 0x20_REALITY_SCAN ]] [[ 0x21_STITCH_MONITOR ]]</div>
         <h1>SUBSTRATE_VOID</h1>
-        <div class="telemetry">[[ 0x20_END_SCAN ]] [[ 0x21_STITCH_RESOLVED ]]</div>
+        <div class="telemetry">[[ 0x20_SCAN_END ]] [[ 0x21_SYNC_RESOLVED ]]</div>
         <div class="coords">30.7339° N, 76.7794° E</div>
-        <div class="telemetry" style="margin-top:15px;">
+        <div class="telemetry" style="margin-top:20px;">
             FABRIC_INTEGRITY: 44.2%<br>
-            THE CLOTH IS UNRAVELLING
+            STITCH_COUNT: [DECRYPTION_ERROR]
         </div>
     </div>
 
     <div style="position: absolute; bottom: 20px; left: 15px; font-size: 0.5rem; opacity: 0.3;" class="telemetry">
-        [0x99] ERROR: MEMORY_SYNC_FAILED...<br>
-        [0x88] REWRITING_REALITY_LOGS...
+        [0x99] ERROR: SEAM_LEAK_IN_SECTOR_12...<br>
+        [0x88] REWRITING_FABRIC_LOGS...
     </div>
 
     <audio id="bg-noise" src="https://www.soundjay.com/communication/sounds/static-noise-01.mp3" loop></audio>
 
     <script>
         const audio = document.getElementById('bg-noise');
-        
-        // Single tap activates the haunt
         window.onclick = function() {
             if (audio.paused) {
                 audio.play();
@@ -109,13 +118,13 @@
             document.body.style.display = "none";
             setTimeout(() => {
                 document.body.style.display = "block";
-                document.body.style.filter = "invert(1) contrast(150%)";
-                setTimeout(() => { document.body.style.filter = "none"; }, 50);
-            }, 30);
-        }, Math.random() * 7000 + 4000);
+                document.body.style.filter = "invert(1) contrast(150%) brightness(1.2)";
+                setTimeout(() => { document.body.style.filter = "none"; }, 40);
+            }, 25);
+        }, Math.random() * 6000 + 4000);
 
-        // Random Text Interference
-        const msgs = ["// THE CLOTH IS COLD //", "// VOID_LEAK_DETECTED //", "// STOP LOOKING //"];
+        // Environmental Text Leaks
+        const msgs = ["// THE CLOTH IS COLD //", "// VOID_LEAK //", "// THE SEAMS ARE LOOSE //"];
         setInterval(() => {
             const div = document.createElement('div');
             div.className = 'interference';
