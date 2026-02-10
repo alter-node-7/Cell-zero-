@@ -3,68 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LOG_ARCHIVE_01: CASE_FILE_404</title>
+    <title>CASE_FILE_404: PHANTOM_VAULT</title>
     <style>
         body { 
             background: #000; color: #00FFFF; font-family: 'Courier New', monospace; 
-            margin: 0; padding: 25px; font-size: 0.75rem; line-height: 1.6;
+            margin: 0; padding: 20px; overflow-x: hidden; min-height: 100vh; font-size: 0.7rem;
             background-image: radial-gradient(circle, #1a1a1a 1px, transparent 1px);
             background-size: 25px 25px;
         }
-
+        .scanline {
+            position: fixed; top: 0; left: 0; width: 100%; height: 8px;
+            background: rgba(0, 255, 255, 0.1); z-index: 50; pointer-events: none;
+            animation: scan_move 8s linear infinite;
+        }
+        @keyframes scan_move { 0% { top: -20px; } 100% { top: 100vh; } }
         .log-container {
-            border: 1px solid #FF00FF; padding: 20px; max-width: 450px;
-            margin: 2vh auto; background: rgba(255, 0, 255, 0.02);
-            box-shadow: 0 0 20px rgba(255, 0, 255, 0.15);
+            border: 1px solid #FF00FF; padding: 25px; margin: 5vh auto;
+            max-width: 450px; background: rgba(255, 0, 255, 0.03);
+            box-shadow: 0 0 20px rgba(255, 0, 255, 0.1); position: relative; z-index: 10;
         }
-
-        .header { 
-            color: #FF00FF; border-bottom: 2px solid #FF00FF; 
-            padding-bottom: 10px; margin-bottom: 20px; font-weight: bold;
-        }
-
-        .label { color: #00FFFF; font-weight: bold; margin-right: 10px; }
-        
-        .redacted { background: #333; color: #333; cursor: help; padding: 0 3px; }
+        .header { border-bottom: 2px solid #FF00FF; margin-bottom: 20px; padding-bottom: 10px; }
+        .tag { color: #FF00FF; font-weight: bold; font-size: 0.6rem; }
+        .label { color: #00FFFF; font-weight: bold; margin-top: 15px; display: block; }
+        .redacted { background: #333; color: #333; cursor: help; padding: 0 4px; }
         .redacted:hover { background: transparent; color: #FF00FF; transition: 0.3s; }
-
         .back-btn { 
             display: block; text-align: center; margin-top: 30px; 
             color: #00FFFF; text-decoration: none; border: 1px solid #00FFFF; 
-            padding: 8px; width: 140px; margin: 0 auto;
-            background: rgba(0, 255, 255, 0.05); font-size: 0.6rem;
+            padding: 8px; width: 140px; margin: 0 auto; background: rgba(0, 255, 255, 0.05);
         }
     </style>
 </head>
 <body>
+    <div class="scanline"></div>
     <div class="log-container">
         <div class="header">
-            [ FIELD_REPORT_LOCAL_SURVEILLANCE ]<br>
-            [ STATUS: INVESTIGATION_STALLED ]
+            <span class="tag">[ FIELD_REPORT_LOCAL_SURVEILLANCE ]</span><br>
+            <span class="tag">[ STATUS: INVESTIGATION_STALLED ]</span>
         </div>
 
-        [span_5](start_span)<p><span class="label">LOCATION:</span> Sub-basement 12, Old Chandigarh Sector <span class="redacted">REDACTED</span>[span_5](end_span)</p>
-        <p><span class="label">DISCOVERY:</span><br>
-        [span_6](start_span)[span_7](start_span)During a routine tectonic scan, construction teams hit a hollow stone vault that <strong>does not appear on any city map</strong>[span_6](end_span)[span_7](end_span). [span_8](start_span)The chamber is sealed with copper-threaded stones that emit a low frequency hum[span_8](end_span).</p>
+        <span class="label">LOCATION:</span>
+        <p>Sub-basement 12, Old Chandigarh Sector <span class="redacted">REDACTED</span></p>
 
-        <p><span class="label">FORENSIC_NOTE:</span><br>
-        [span_9](start_span)[span_10](start_span)Inside, we found remains of eight individuals in a circular pattern[span_9](end_span)[span_10](end_span). [span_11](start_span)<strong>Cause of death: Unknown.</strong> Biological samples show zero signs of decay despite appearing to be decades old—as if time in the room "paused"[span_11](end_span).</p>
+        <span class="label">DISCOVERY:</span>
+        <p>During a routine tectonic scan, teams hit a hollow stone vault that <strong>does not appear on any city map</strong>. The chamber is sealed with copper-threaded stones that emit a low frequency hum.</p>
 
-        <p><span class="label">MISSING_OBJECTS:</span><br>
-        [span_12](start_span)A central pedestal was found empty[span_12](end_span). [span_13](start_span)[span_14](start_span)There are rectangular indentations in the dust, suggesting <strong>nine objects</strong> were recently removed[span_13](end_span)[span_14](end_span). Who took them? How did they enter a sealed room with no doors?</p>
+        <span class="label">FORENSIC_NOTE:</span>
+        <p>Inside, we found remains of eight individuals in a circular pattern. Biological samples show zero signs of decay despite appearing decades old—as if time in the room "paused."</p>
 
-        <p><span class="label">OFFICER_COMMENTS:</span><br>
-        The air in here feels "heavy." [span_15](start_span)[span_16](start_span)Some of my team are reporting <span class="redacted">AUDITORY_HALLUCINATIONS</span> and memory loss[span_15](end_span)[span_16](end_span). [span_17](start_span)Recommending immediate handover to the <strong>Peacekeepers</strong>[span_17](end_span).</p>
+        <span class="label">MISSING_OBJECTS:</span>
+        <p>A central pedestal was found empty. Dust indentations suggest <strong>nine objects</strong> were recently removed. Entry method remains unknown; room has no doors.</p>
+
+        <span class="label">OFFICER_COMMENTS:</span>
+        <p>The air feels "heavy." Some team members report <span class="redacted">AUDITORY_HALLUCINATIONS</span> and memory loss. Recommending immediate handover to <strong>Peacekeepers</strong>.</p>
 
         <a href="index.html" class="back-btn"><< BACK_TO_MONITOR</a>
     </div>
-
-    <audio id="bg-noise" src="https://www.soundjay.com/communication/sounds/static-noise-01.mp3" loop></audio>
-
-    <script>
-        const audio = document.getElementById('bg-noise');
-        window.onclick = () => { if (audio.paused) { audio.play(); audio.volume = 0.1; } };
-    </script>
 </body>
-        </html>
-          
+</html>
