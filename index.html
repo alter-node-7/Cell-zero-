@@ -3,83 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CELL_ZERO_CORE_MONITOR</title>
+    <title>CELL_ZERO_MONITOR</title>
     <style>
         body { 
             background: #000; color: #00FFFF; font-family: 'Courier New', monospace; 
-            margin: 0; padding: 12px; overflow: hidden; height: 100vh; font-size: 0.55rem;
+            margin: 0; padding: 12px; overflow: hidden; height: 100vh; font-size: 0.6rem;
             background-image: radial-gradient(circle, #111 1px, transparent 1px);
             background-size: 20px 20px;
         }
 
-        /* Moving Horizontal Scanline */
-        .scanline {
-            position: absolute; width: 100%; height: 3px;
-            background: rgba(0, 255, 255, 0.2);
-            z-index: 15; top: 0;
-            box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
-            animation: scan 4s linear infinite;
-            pointer-events: none;
+        /* Scanline CRT Vibe */
+        .monitor-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%),
+                        linear-gradient(90deg, rgba(255, 0, 0, 0.02), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.02));
+            background-size: 100% 3px, 3px 100%; pointer-events: none; z-index: 10;
         }
-        @keyframes scan { 0% { top: -5%; } 100% { top: 105%; } }
 
-        /* Side Logs (Restoring the busy look) */
-        .side-logs {
-            position: absolute; color: rgba(0, 255, 255, 0.3); font-size: 0.5rem;
-            line-height: 1.1; white-space: nowrap; z-index: 1; pointer-events: none;
-        }
-        .left-log { top: 20px; left: 10px; }
-        .right-log { top: 20px; right: 10px; text-align: right; }
+        /* Telemetry Elements (The Hex Look) */
+        .telemetry { color: rgba(0, 255, 255, 0.35); line-height: 1.1; font-size: 0.55rem; }
+        .alert-red { color: #FF0000; font-weight: bold; animation: pulse 0.8s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
 
-        .telemetry { color: rgba(0, 255, 255, 0.4); font-size: 0.55rem; }
-        .alert-red { color: #FF0000; font-weight: bold; animation: pulse 0.5s infinite; }
-        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
-
+        /* Layout Positions */
+        .header { display: flex; justify-content: space-between; position: relative; z-index: 15; }
         .center-box {
             position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            text-align: center; width: 100%; z-index: 10;
+            text-align: center; width: 100%; z-index: 2;
         }
 
         h1 { 
-            font-size: 1.6rem; letter-spacing: 5px; margin: 5px 0; color: #fff;
+            font-size: 1.7rem; letter-spacing: 5px; margin: 0; color: #fff;
             text-shadow: 2px 0 #ff00ff, -2px 0 #00ffff;
         }
 
         .coords { 
-            color: #ff00ff; margin-top: 10px; font-weight: bold; 
-            display: inline-block; cursor: help; border-bottom: 1px dashed #ff00ff;
+            color: #ff00ff; margin-top: 8px; font-weight: bold; cursor: help;
+            display: inline-block; border-bottom: 1px dashed #ff00ff;
         }
 
-        /* Fixed Navigation Buttons */
-        .nav-container { position: absolute; top: 20px; right: 10px; text-align: right; z-index: 100; pointer-events: auto; }
+        /* Interactive Buttons */
         .btn { 
-            display: inline-block; color: #00ffff !important; text-decoration: none; 
-            border: 1px solid #00ffff; padding: 5px 8px; background: rgba(0, 255, 255, 0.1);
-            font-size: 0.6rem; cursor: pointer;
+            color: #00ffff; text-decoration: none; border: 1px solid #00ffff; 
+            padding: 4px 8px; background: rgba(0, 255, 255, 0.1); font-size: 0.55rem;
+            display: inline-block; pointer-events: auto;
         }
-        .btn:hover { background: #00ffff; color: #000 !important; }
+        .btn:hover { background: #00ffff; color: #000; }
 
-        .interference { position: fixed; color: #ff00ff; font-size: 0.5rem; animation: vanish 2s forwards; z-index: 100; }
+        /* Coordinate Tooltip */
+        .coords:active::after, .coords:hover::after {
+            content: "REPORT_30.7N: Matter behaving as non-Newtonian fluid. Concrete behaving like a curtain in Sector 17.";
+            position: absolute; bottom: 25px; left: 50%; transform: translateX(-50%);
+            background: #FF00FF; color: #000; padding: 10px; width: 180px; font-size: 0.55rem; border: 1px solid #fff; z-index: 20;
+        }
+
+        .interference { position: fixed; color: #ff00ff; font-size: 0.5rem; pointer-events: none; z-index: 5; animation: vanish 2s forwards; }
         @keyframes vanish { 0% { opacity: 0.8; } 100% { opacity: 0; transform: translateY(-20px); } }
     </style>
 </head>
 <body>
-    <div class="scanline"></div>
+    <div class="monitor-overlay"></div>
 
-    <div class="side-logs left-log">
-        [0x01] SYNCING_REALITY_STITCHES...<br>
-        [0x04] SCAN_SECTOR_17_WALLS...<br>
-        [0x07] DETECT_DRIFT: 0.0034mm<br>
-        [0x09] PHYSICS_BYPASS: TRUE<br>
-        [0x12] ATOMIC_SYNC: <span class="alert-red">FAILED</span><br>
-        [0x15] BUFFER_REALITY_LOGS...<br>
-        [0x18] DETACHING_SUBJECT_01...<br>
-        [0x22] ERROR_VOID_LEAK_DET...
-    </div>
-
-    <div class="nav-container">
-        <a href="LOG_ARCHIVE_01.html" style="color:#00ffff; text-decoration:none;">[ NODE_7_LOG ]</a><br><br>
-        <a href="observer-laws.html" class="btn">[DECRYPT_WEAVE]</a>
+    <div class="header">
+        <div class="telemetry">
+            [0x01] SYNC_START<br>
+            [0x04] SCAN_SECTOR_17...<br>
+            [0x12] ATOMIC_SYNC: <span class="alert-red">FAILED</span>
+        </div>
+        <div style="text-align: right;">
+            <a href="LOG_ARCHIVE_01.html" style="color:#FF00FF; text-decoration:none;">[[ ACCESS_LOG ]]</a><br><br>
+            <a href="observer-laws.html" class="btn">[DECRYPT_WEAVE]</a>
+        </div>
     </div>
 
     <div class="center-box">
@@ -87,13 +81,13 @@
         <h1>SUBSTRATE_VOID</h1>
         <div class="telemetry">[[ INTEGRITY_STITCH_MONITOR ]]</div>
         <div class="coords">30.7339° N, 76.7794° E</div>
-        <div class="telemetry" style="margin-top:20px;">
+        <div class="telemetry" style="margin-top:15px;">
             FABRIC_INTEGRITY: 44.2%<br>
             STITCH_DRIFT: ACTIVE
         </div>
     </div>
 
-    <div style="position: absolute; bottom: 20px; left: 15px; font-size: 0.5rem; opacity: 0.3;" class="telemetry">
+    <div style="position: absolute; bottom: 20px; left: 15px; font-size: 0.45rem; opacity: 0.3;" class="telemetry">
         [SYSTEM_ERR] MEMORY_SYNC_FAILED_IN_SECTOR_12...<br>
         [SYSTEM_LOG] REWRITING_FABRIC_THREADS...
     </div>
@@ -102,25 +96,34 @@
 
     <script>
         const audio = document.getElementById('bg-noise');
-        window.onclick = function() {
+        
+        // Mobile tap fix
+        window.addEventListener('touchstart', () => {
+            if (audio.paused) {
+                audio.play();
+                audio.volume = 0.15;
+            }
+        }, { once: true });
+
+        window.onclick = () => {
             if (audio.paused) {
                 audio.play();
                 audio.volume = 0.15;
             }
         };
 
-        // Glitch Logic
+        // Millisecond Glitch
         setInterval(() => {
             document.body.style.display = "none";
             setTimeout(() => {
                 document.body.style.display = "block";
                 document.body.style.filter = "invert(1) contrast(150%)";
-                setTimeout(() => { document.body.style.filter = "none"; }, 50);
-            }, 30);
-        }, Math.random() * 6000 + 4000);
+                setTimeout(() => { document.body.style.filter = "none"; }, 40);
+            }, 25);
+        }, Math.random() * 8000 + 4000);
 
-        // Random Text Leaks
-        const msgs = ["// THE CLOTH IS COLD //", "// STOP LOOKING //", "// VOID_LEAK //"];
+        // Reality Interference
+        const msgs = ["// THE CLOTH IS COLD //", "// VOID_LEAK_DETECTED //", "// SEAMS_ARE_LOOSE //"];
         setInterval(() => {
             const div = document.createElement('div');
             div.className = 'interference';
