@@ -1,60 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DECRYPTED_7_LAWS</title>
     <style>
-        body {
-            background-color: #050505;
-            background-image: url("https://www.transparenttextures.com/patterns/dark-linen.png");
-            color: #00FFFF;
-            font-family: 'Courier New', Courier, monospace;
-            padding: 40px;
-            line-height: 1.6;
+        body { 
+            background: #000; color: #00FFFF; font-family: 'Courier New', monospace; 
+            margin: 0; padding: 20px; overflow-x: hidden; height: 100vh; font-size: 0.7rem;
+            background-image: radial-gradient(circle, #1a1a1a 1px, transparent 1px);
+            background-size: 25px 25px;
         }
-        .file-container {
-            max-width: 800px;
-            margin: auto;
-            border: 2px dashed rgba(0, 255, 255, 0.3);
-            background: rgba(10, 10, 10, 0.9);
-            padding: 30px;
-            box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
+
+        /* Scanline to match the Dashboard */
+        .scanline {
+            position: fixed; top: 0; left: 0; width: 100%; height: 8px;
+            background: rgba(0, 255, 255, 0.1); z-index: 50; pointer-events: none;
+            animation: scan_move 8s linear infinite;
         }
-        h1 {
-            text-align: center;
-            -webkit-text-stroke: 1px #00FFFF;
-            color: transparent;
-            letter-spacing: 5px;
-            border-bottom: 1px double #333;
+        @keyframes scan_move { 0% { top: -20px; } 100% { top: 100vh; } }
+
+        .laws-container {
+            border: 1px dashed #00FFFF; padding: 25px; margin-top: 10vh;
+            background: rgba(0, 255, 255, 0.05); box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
         }
-        .law-box {
-            margin-bottom: 30px;
-            padding-left: 20px;
-            border-left: 2px solid #FF00FF;
+
+        h2 { color: #FF00FF; text-align: center; letter-spacing: 4px; text-shadow: 0 0 10px #FF00FF; }
+        
+        .law-block { margin-bottom: 30px; }
+        .law-id { color: #FF00FF; font-weight: bold; display: block; margin-bottom: 5px; }
+        
+        /* Encryption Tease for Law 3 */
+        .encrypted-text {
+            color: #555; font-style: italic;
+            animation: flicker 0.1s infinite;
         }
-        .law-title {
-            font-weight: bold;
-            color: #FF00FF;
-            text-transform: uppercase;
+        @keyframes flicker {
+            0% { opacity: 0.2; } 50% { opacity: 0.5; } 100% { opacity: 0.2; }
         }
-        .redacted {
-            background-color: #333;
-            color: #333;
+
+        .redacted { background: #333; color: #333; cursor: help; }
+        .redacted:hover { background: transparent; color: #FF00FF; }
+
+        .back-btn { 
+            display: block; text-align: center; margin-top: 40px; 
+            color: #00FFFF; text-decoration: none; border: 1px solid #00FFFF; padding: 5px; width: 120px; margin-left: auto; margin-right: auto;
         }
+        .back-btn:hover { background: #00FFFF; color: #000; }
     </style>
 </head>
 <body>
-    <div class="file-container">
-        <h1>[ DECRYPTED_7_LAWS ]</h1>
-        <div class="law-box">
-            <span class="law-title">Law 1: Atomic Mismatch</span>
-            <p>Subject atoms do not sync with local leyline frequency. Presence causes localized <span class="redacted">RENDER_FAILURE</span>.</p>
+    <div class="scanline"></div>
+
+    <div class="laws-container">
+        <h2>[ THE_7_LAWS_OF_THE_STITCH ]</h2>
+
+        <div class="law-block">
+            <span class="law-id">LAW_01: SPATIAL ANCHORING</span>
+            <p>Subject atoms must remain within 1.4m of the designated 'Stitch'. Failure to anchor results in <span class="redacted">TEMPORAL_DRIFT</span>.</p>
         </div>
-        <div class="law-box">
-            <span class="law-title">Law 2: Correction Pressure</span>
-            <p>The Fabric attempts to overwrite the Subject. Result: Constant auditory and visual "lag" in Sector 12.</p>
+
+        <div class="law-block">
+            <span class="law-id">LAW_02: THE CLOTH MEMORY</span>
+            <p>Reality remembers its original shape. If the Subject passes through solid matter, the matter will attempt to <span class="redacted">RECLAIM_SPACE</span>.</p>
         </div>
-        <div style="margin-top: 50px; text-align: center;">
-            <a href="index.html" style="color: #00FFFF; text-decoration: none;">&lt;&lt; BACK_TO_MONITOR</a>
+
+        <div class="law-block">
+            <span class="law-id">LAW_03: [ ENCRYPTION_ERROR ]</span>
+            <p class="encrypted-text">// DATA_LEAK: SHADOWS_ARE_NOT_TETHERED... //</p>
+            <p style="color: #FF00FF; font-size: 0.6rem;">[ DECRYPTION AT 14.2%... MORE DATA PENDING ]</p>
         </div>
+
+        <a href="index.html" class="back-btn"><< BACK_TO_MONITOR</a>
     </div>
+
+    <audio id="bg-noise" src="https://www.soundjay.com/communication/sounds/static-noise-01.mp3" loop></audio>
+
+    <script>
+        const audio = document.getElementById('bg-noise');
+        window.onclick = () => { if (audio.paused) { audio.play(); audio.volume = 0.1; } };
+    </script>
 </body>
 </html>
