@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UNMAPPED_LOG_17B</title>
+    <title>SYS_RECOVERY_17B</title>
     <style>
         body { 
             background: #020202; color: #00FF41; font-family: 'Courier New', monospace; 
@@ -11,16 +11,14 @@
         }
         .street-ui {
             border: 1px solid #222; padding: 15px; max-width: 420px; margin: 2vh auto;
-            background: rgba(0, 255, 65, 0.01);
+            background: rgba(0, 255, 65, 0.01); position: relative;
         }
-        .glitch-text { animation: blink 0.05s infinite; color: #fff; }
+        .glitch-text { animation: blink 0.08s infinite; color: #fff; }
         @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0; } 100% { opacity: 1; } }
 
         .packet-data { border-left: 1px solid #FF00FF; padding-left: 12px; margin: 25px 0; color: #FF00FF; }
         
-        /* Subtle "Something is Wrong" UI */
-        .distorted-box { transform: skewX(-1deg); filter: blur(0.3px); }
-
+        /* Interactive Section */
         .msg-system { border-top: 1px solid #111; margin-top: 25px; padding-top: 15px; }
         .msg-input { 
             width: 100%; background: #000; border: 1px solid #333; 
@@ -32,13 +30,21 @@
             background: transparent; padding: 5px; cursor: pointer; font-size: 0.55rem;
         }
         .msg-btn:hover { border-color: #FF00FF; color: #FF00FF; }
+
+        /* The Missing Back Button Fix */
+        .back-nav { margin-top: 40px; text-align: center; border-top: 1px solid #111; padding-top: 20px; }
+        .back-btn { 
+            color: #555; text-decoration: none; font-size: 0.55rem; 
+            letter-spacing: 2px; transition: 0.3s;
+        }
+        .back-btn:hover { color: #00FF41; text-shadow: 0 0 5px #00FF41; }
     </style>
 </head>
 <body>
-    <div class="street-ui distorted-box">
+    <div class="street-ui">
         <p><strong>LOG_FRAGMENT_17B:</strong><br>
         [ DATE: REDACTED ]<br>
-        [ STATUS: IMPOSSIBLE_EVENT ]</p>
+        [ STATUS: IMPOSSIBLE_RECOVERY ]</p>
 
         <p>The vault lattice did not break. It did not melt. It simply <span class="glitch-text">CEASED</span> for 0.004ms. Forensic scanners reported a "Missing Variable" in the local geometry.</p>
 
@@ -47,11 +53,15 @@
             "There is no entry log. There is no exit log. The room was empty, then it was occupied, then it was empty again. It’s like the universe <span class="glitch-text">FORGOT</span> the wall was there."
         </div>
 
-        <p>R: "I've spent years staring at this static. No names. No faces. Just a hole in the world where a person should be. If you see the pattern, send it. Don't ask me why."</p>
+        <p>R: "I've spent years staring at this static. No names. Just a hole in the world where a person should be. If you see the pattern, send it. Don't ask me why."</p>
 
         <div class="msg-system">
             <input type="text" class="msg-input" placeholder=">> SEND_SIGNAL..." id="userInput">
             <button class="msg-btn" onclick="sendToDiscord()">[ LOG_DATA ]</button>
+        </div>
+
+        <div class="back-nav">
+            <a href="index.html" class="back-btn">[ TERMINATE_SESSION ]</a>
         </div>
     </div>
 
