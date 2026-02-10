@@ -11,67 +11,76 @@
             background-image: radial-gradient(circle, #1a1a1a 1px, transparent 1px);
             background-size: 25px 25px;
         }
+
         .scanline {
-            position: fixed; top: 0; left: 0; width: 100%; height: 8px;
+            position: fixed; top: 0; left: 0; width: 100%; height: 6px;
             background: rgba(0, 255, 255, 0.1); z-index: 50; pointer-events: none;
             animation: scan_move 8s linear infinite;
         }
         @keyframes scan_move { 0% { top: -20px; } 100% { top: 100vh; } }
+
         .laws-container {
-            border: 1px dashed #00FFFF; padding: 25px; margin: 5vh auto;
-            max-width: 450px; background: rgba(0, 255, 255, 0.03);
+            border: 1px dashed #00FFFF; padding: 25px; margin: 4vh auto;
+            max-width: 400px; background: rgba(0, 255, 255, 0.03);
             box-shadow: 0 0 20px rgba(0, 255, 255, 0.1); position: relative; z-index: 10;
         }
-        h2 { color: #FF00FF; text-align: center; letter-spacing: 3px; margin: 0; font-size: 0.9rem; }
-        .law-block { margin-bottom: 25px; border-left: 2px solid #FF00FF; padding-left: 15px; }
-        .law-id { color: #FF00FF; font-weight: bold; display: block; margin-bottom: 8px; font-size: 0.8rem; }
-        #glitch-law { color: #555; font-style: italic; min-height: 1.2rem; margin: 10px 0; }
+
+        h2 { color: #FF00FF; text-align: center; letter-spacing: 2px; margin: 0; font-size: 0.85rem; }
+        
+        .law-block { margin: 20px 0; border-left: 2px solid #FF00FF; padding-left: 12px; }
+        .law-id { color: #FF00FF; font-weight: bold; display: block; margin-bottom: 5px; font-size: 0.75rem; }
+        
+        #glitch-text { color: #555; font-style: italic; min-height: 1rem; margin: 8px 0; }
+
         .redacted { background: #333; color: #333; cursor: help; padding: 0 4px; }
         .redacted:hover { background: transparent; color: #FF00FF; transition: 0.3s; }
+
         .back-btn { 
-            display: block; text-align: center; margin-top: 30px; 
+            display: block; text-align: center; margin-top: 25px; 
             color: #00FFFF; text-decoration: none; border: 1px solid #00FFFF; 
-            padding: 8px; width: 140px; margin: 0 auto; background: rgba(0, 255, 255, 0.05);
+            padding: 8px; width: 130px; margin-left: auto; margin-right: auto;
+            background: rgba(0, 255, 255, 0.05); font-size: 0.6rem;
         }
     </style>
 </head>
 <body>
     <div class="scanline"></div>
+
     <div class="laws-container">
-        <p style="text-align: center; color: #FF00FF; font-size: 0.5rem; margin: 0;">[ ACCESS_RESTRICTED ]</p>
+        <p style="text-align: center; color: #FF00FF; font-size: 0.5rem; margin: 0 0 10px 0;">[ ACCESS_RESTRICTED ]</p>
         <h2>CLASSIFIED_SUBJECT_OBS_01</h2>
-        <hr style="border: 0.5px solid #FF00FF; margin: 15px 0 25px 0;">
+        <hr style="border: 0.5px solid #FF00FF; margin: 15px 0;">
 
         <div class="law-block">
             <span class="law-id">LAW_01: ATOMIC_MISMATCH</span>
-            <p>Subject atoms do not sync with embedded constants. [span_0](start_span)[span_1](start_span)Presence triggers <span class="redacted">STRUCTURAL_MISMATCH</span> in local hardware[span_0](end_span)[span_1](end_span).</p>
+            <p>Subject atoms do not sync with embedded constants. Presence triggers <span class="redacted">STRUCTURAL_MISMATCH</span> in local hardware.</p>
         </div>
 
         <div class="law-block">
             <span class="law-id">LAW_02: CORRECTION_PRESSURE</span>
-            <p>Physics engines attempt to assign 'position' to Subject. [span_2](start_span)Result: localized <span class="redacted">QUANTUM_DRIFT</span> and spatial ripples[span_2](end_span).</p>
+            <p>Physics engines attempt to assign 'position' to Subject. Result: localized <span class="redacted">QUANTUM_DRIFT</span> and spatial ripples.</p>
         </div>
 
         <div class="law-block">
             <span class="law-id">LAW_03: [ ENCRYPTION_ERROR ]</span>
-            <p id="glitch-law">// 0x4C 0x45 0x59 0x4C 0x49 0x4E 0x45_DROP //</p>
-            <div style="color: #FF00FF; font-size: 0.6rem; line-height: 1.4;">
+            <p id="glitch-text">// 0x4C 0x45 0x59 0x4C 0x49 0x4E 0x45_DROP //</p>
+            <div style="color: #FF00FF; font-size: 0.55rem; line-height: 1.4; opacity: 0.8;">
                 DECRYPTION_STATUS: 14.2%<br>
                 THREAT_LEVEL: OMEGA<br>
                 [ MORE_DATA_PENDING ]
             </div>
         </div>
+
         <a href="index.html" class="back-btn"><< BACK_TO_MONITOR</a>
     </div>
 
     <script>
-        const law3 = document.getElementById('glitch-law');
-        const fragments = ["// SHADOWS_ARE_NOT_TETHERED... //", "// SUBJECT_OBS_01_DETECTED //", "// ERROR: 404_REALITY_NOT_FOUND //", "// DO_NOT_LOOK_BACK //"];
+        const glitchElement = document.getElementById('glitch-text');
+        const terms = ["// SHADOWS_ARE_NOT_TETHERED... //", "// SUBJECT_OBS_01_DETECTED //", "// ERROR: 404_REALITY_NOT_FOUND //", "// DO_NOT_LOOK_BACK //"];
         setInterval(() => {
-            law3.innerText = fragments[Math.floor(Math.random() * fragments.length)];
-            law3.style.opacity = Math.random() > 0.4 ? "1" : "0.2";
-        }, 180);
+            glitchElement.innerText = terms[Math.floor(Math.random() * terms.length)];
+            glitchElement.style.opacity = Math.random() > 0.4 ? "1" : "0.2";
+        }, 200);
     </script>
 </body>
-        </html>
-            
+</html>
