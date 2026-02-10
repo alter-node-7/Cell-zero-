@@ -3,73 +3,164 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SYS_RECOVERY_17B</title>
+    <title>CELL_ZERO_MONITOR</title>
     <style>
         body { 
-            background: #020202; color: #00FF41; font-family: 'Courier New', monospace; 
-            margin: 0; padding: 25px; font-size: 0.65rem; line-height: 1.4;
+            background: #000; color: #00FFFF; font-family: 'Courier New', monospace; 
+            margin: 0; padding: 12px; overflow: hidden; height: 100vh; font-size: 0.65rem;
+            background-image: radial-gradient(circle, #111 1px, transparent 1px);
+            background-size: 20px 20px;
         }
-        .street-ui {
-            border: 1px solid #222; padding: 15px; max-width: 420px; margin: 2vh auto;
-            background: rgba(0, 255, 65, 0.01); position: relative;
-        }
-        .glitch-text { animation: blink 0.08s infinite; color: #fff; }
-        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0; } 100% { opacity: 1; } }
 
-        .packet-data { border-left: 1px solid #FF00FF; padding-left: 12px; margin: 25px 0; color: #FF00FF; }
-        
-        /* Interactive Section */
-        .msg-system { border-top: 1px solid #111; margin-top: 25px; padding-top: 15px; }
-        .msg-input { 
-            width: 100%; background: #000; border: 1px solid #333; 
-            color: #00FF41; padding: 10px; font-family: inherit; font-size: 0.6rem;
-            margin-bottom: 10px; outline: none; box-sizing: border-box;
+        .monitor-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%),
+                        linear-gradient(90deg, rgba(255, 0, 0, 0.02), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.02));
+            background-size: 100% 3px, 3px 100%; pointer-events: none; z-index: 10;
         }
-        .msg-btn { 
-            width: 100%; border: 1px solid #333; color: #444; 
-            background: transparent; padding: 5px; cursor: pointer; font-size: 0.55rem;
+
+        .hr-line {
+            width: 100%; height: 1px; background: rgba(0, 255, 255, 0.4);
+            margin: 15px 0; box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+            position: relative; z-index: 5;
+        }
+
+        .telemetry { color: rgba(0, 255, 255, 0.4); line-height: 1.2; font-size: 0.6rem; }
+        .alert-red { color: #FF0000; font-weight: bold; animation: pulse 0.8s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+        /* Scrolling Logs Styling */
+        .log-stream {
+            position: fixed; bottom: 20px; width: 120px; height: 150px;
+            overflow: hidden; font-size: 0.75rem; color: rgba(0, 255, 255, 0.25);
+            display: flex; flex-direction: column-reverse; pointer-events: none;
+            font-weight: bold;
+        }
+        #stream-left { left: 15px; }
+        #stream-right { right: 15px; text-align: right; }
+
+        .header { display: flex; justify-content: space-between; position: relative; z-index: 15; }
+        .center-box {
+            position: absolute; top: 48%; left: 50%; transform: translate(-50%, -50%);
+            text-align: center; width: 90%; z-index: 2;
+        }
+
+        h1 { 
+            font-size: 1.8rem; letter-spacing: 6px; margin: 0; color: #fff;
+            text-shadow: 2px 0 #ff00ff, -2px 0 #00ffff;
+        }
+
+        /* Intel Feed Input Box */
+        .intel-input {
+            margin-top: 25px; border: 1px solid #333; padding: 10px;
+            background: rgba(0, 255, 65, 0.02); position: relative;
+        }
+        .msg-input {
+            width: 100%; background: #000; border: 1px solid #333;
+            color: #00FF41; padding: 8px; font-family: inherit; font-size: 0.65rem;
+            box-sizing: border-box; outline: none; margin-bottom: 5px;
+        }
+        .msg-btn {
+            width: 100%; border: 1px solid #333; color: #444; background: transparent;
+            padding: 5px; cursor: pointer; font-size: 0.55rem; font-family: inherit;
         }
         .msg-btn:hover { border-color: #FF00FF; color: #FF00FF; }
 
-        /* The Missing Back Button Fix */
-        .back-nav { margin-top: 40px; text-align: center; border-top: 1px solid #111; padding-top: 20px; }
-        .back-btn { 
-            color: #555; text-decoration: none; font-size: 0.55rem; 
-            letter-spacing: 2px; transition: 0.3s;
+        .btn { 
+            color: #00ffff; text-decoration: none; border: 1px solid #00ffff; 
+            padding: 5px 10px; background: rgba(0, 255, 255, 0.1); font-size: 0.6rem;
+            display: inline-block;
         }
-        .back-btn:hover { color: #00FF41; text-shadow: 0 0 5px #00FF41; }
     </style>
 </head>
 <body>
-    <div class="street-ui">
-        <p><strong>LOG_FRAGMENT_17B:</strong><br>
-        [ DATE: REDACTED ]<br>
-        [ STATUS: IMPOSSIBLE_RECOVERY ]</p>
+    <div class="monitor-overlay"></div>
 
-        <p>The vault lattice did not break. It did not melt. It simply <span class="glitch-text">CEASED</span> for 0.004ms. Forensic scanners reported a "Missing Variable" in the local geometry.</p>
+    <div id="stream-left" class="log-stream"></div>
+    <div id="stream-right" class="log-stream"></div>
 
-        <div class="packet-data">
-            <strong>RECOVERED_TRACE:</strong><br>
-            "There is no entry log. There is no exit log. The room was empty, then it was occupied, then it was empty again. It’s like the universe <span class="glitch-text">FORGOT</span> the wall was there."
+    <div class="header">
+        <div class="telemetry">
+            [0x01] SYNC_START<br>
+            [0x04] SCAN_SECTOR_17...<br>
+            [0x12] ATOMIC_SYNC: <span class="alert-red">FAILED</span>
         </div>
-
-        <p>R: "I've spent years staring at this static. No names. Just a hole in the world where a person should be. If you see the pattern, send it. Don't ask me why."</p>
-
-        <div class="msg-system">
-            <input type="text" class="msg-input" placeholder=">> SEND_SIGNAL..." id="userInput">
-            <button class="msg-btn" onclick="sendToDiscord()">[ LOG_DATA ]</button>
-        </div>
-
-        <div class="back-nav">
-            <a href="index.html" class="back-btn">[ TERMINATE_SESSION ]</a>
+        <div style="text-align: right;">
+            <a href="LOG_ARCHIVE_01.html" style="color:#FF00FF; text-decoration:none;">[[ ACCESS_LOG ]]</a><br><br>
+            <a href="observer-laws.html" class="btn">[DECRYPT_WEAVE]</a>
         </div>
     </div>
 
+    <div class="hr-line"></div>
+
+    <div class="center-box">
+        <div class="telemetry">[[ INITIATE_FABRIC_ANALYSIS ]]</div>
+        <h1>SUBSTRATE_VOID</h1>
+        <div class="telemetry">[[ INTEGRITY_STITCH_MONITOR ]]</div>
+        
+        <div class="intel-input">
+            <p class="telemetry" style="margin-bottom: 5px;">// ANONYMOUS_STREET_FEED //</p>
+            <input type="text" id="userInput" class="msg-input" placeholder=">> SEND_SIGNAL...">
+            <button class="msg-btn" onclick="sendToDiscord()">[ LOG_DATA ]</button>
+        </div>
+    </div>
+
+    <audio id="bg-noise" src="https://www.soundjay.com/communication/sounds/static-noise-01.mp3" loop></audio>
+
     <script>
+        const audio = document.getElementById('bg-noise');
+        window.onclick = () => { if (audio.paused) { audio.play(); audio.volume = 0.15; } };
+
+        // Discord Webhook Logic
         function sendToDiscord() {
-            alert(">> SIGNAL_SENT.\n'The Archive is watching.'");
-            document.getElementById('userInput').value = '';
+            const msg = document.getElementById('userInput').value;
+            const webhookURL = "https://discord.com/api/webhooks/1470752513950224437/bfiMZverN0HkFyqasoYQLHX8QyGDZFl6pEE6HEoY7kzlnKk_w0sIduMxABTWtfr0McD6"; 
+
+            if (!msg) {
+                alert(">> ERROR: Signal empty.");
+                return;
+            }
+
+            fetch(webhookURL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    content: `>> [INTEL_STREET_TIP]\n**Node**: Sector 17 Monitor\n**Intel**: ${msg}`
+                })
+            }).then(() => {
+                alert(">> TIP_LOGGED.\n'R' is reviewing the data.");
+                document.getElementById('userInput').value = '';
+            }).catch(() => {
+                alert(">> SIGNAL_JAMMED. Try again.");
+            });
         }
+
+        // Scrolling Log Streams
+        const leftStream = document.getElementById('stream-left');
+        const rightStream = document.getElementById('stream-right');
+        const hexCodes = ["0xFA", "0x01", "0x99", "ERR", "VOID", "STITCH", "LEAK"];
+
+        setInterval(() => {
+            const lLine = document.createElement('div');
+            lLine.innerText = hexCodes[Math.floor(Math.random() * hexCodes.length)] + "_" + Math.floor(Math.random()*999);
+            leftStream.prepend(lLine);
+            if(leftStream.children.length > 8) leftStream.lastChild.remove();
+
+            const rLine = document.createElement('div');
+            rLine.innerText = "SYS_" + Math.random().toString(16).slice(2,6).toUpperCase();
+            rightStream.prepend(rLine);
+            if(rightStream.children.length > 8) rightStream.lastChild.remove();
+        }, 850);
+
+        // Glitch Logic
+        setInterval(() => {
+            document.body.style.display = "none";
+            setTimeout(() => {
+                document.body.style.display = "block";
+                document.body.style.filter = "invert(1) contrast(150%)";
+                setTimeout(() => { document.body.style.filter = "none"; }, 40);
+            }, 30);
+        }, Math.random() * 8000 + 4000);
     </script>
 </body>
 </html>
