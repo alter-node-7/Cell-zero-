@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RECOVERY_MODE // FRAGMENT_17B</title>
+    <title>RECOVERY_MODE // EVENT_2012</title>
     <style>
         body { 
             background: #020202; color: #00FF41; font-family: 'Courier New', monospace; 
@@ -13,9 +13,9 @@
             border: 1px solid #222; padding: 20px; max-width: 450px; margin: 2vh auto;
             background: rgba(0, 255, 65, 0.01); box-shadow: 0 0 20px rgba(0,0,0,1);
         }
-        .encrypted-block { border-left: 2px solid #FF00FF; padding-left: 15px; margin: 25px 0; color: #FF00FF; }
-        .glitch { animation: blink 0.1s infinite; }
-        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.7; } 100% { opacity: 1; } }
+        .intercept-block { border-left: 2px solid #FF00FF; padding-left: 15px; margin: 25px 0; color: #FF00FF; }
+        .glitch { animation: blink 0.15s infinite; }
+        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.8; } 100% { opacity: 1; } }
 
         .msg-input {
             width: 100%; background: #000; border: 1px solid #333; color: #00FF41;
@@ -34,16 +34,16 @@
         [ STATUS: RECOVERY_SUCCESSFUL ]
 
         <p>
-            <strong>SUB-BASEMENT 12:</strong> Surveillance logs from 14 years ago confirm a hollow stone vault undetected by tectonic scans. First responders identified eight biological samples in a static circular formation—no decay recorded despite age.
+            <strong>SUB-BASEMENT 12:</strong> Recovered surveillance logs confirm a hollow stone vault undetected for decades. Teams found eight individuals in a circular formation—biological decay had completely ceased. Forensic notes describe it as if <strong>time itself had paused</strong> inside the chamber.
         </p>
 
-        <div class="encrypted-block">
+        <div class="intercept-block">
             <strong>OVERRIDE_LOG [ID: R]:</strong><br>
-            "Encryption cracked. Analyzing the gap in the 2012 timeline. The central pedestal was found void of nine specific variables. If these are not artifacts, but hardware keys, the 'Unzipping' event was not a breach—it was a planned activation. Data required on Subject OBS-01 displacement."
+            "Finally managed to bypass the 14-year encryption lock. This isn't just a cold case; it's a hole in our history. The reports mention the air felt 'heavy' and unnatural, causing immediate disorientation. Something was removed from that central pedestal that changed the fabric of this sector. I need any external telemetry from Rickshaw 661 to bridge the gap."
         </div>
 
         <p style="opacity: 0.6;">
-            [FIELD_NOTE]: Atmospheric density remains critical. First responders suffered acute memory wipe upon entry. Rickshaw 661 dashcam remains the primary unaltered record of the sector exit.
+            [FIELD_NOTE]: First responders reported a deep sense of wrongness. The vault stones, threaded with copper, emitted a low-frequency hum that disrupted all electronic equipment.
         </p>
 
         <input type="text" id="userInput" class="msg-input" placeholder=">> INPUT_STREET_TELEMETRY...">
@@ -60,31 +60,12 @@
             fetch(webhookURL, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ content: `>> [RECOVERY_INTEL]: ${msg}` })
+                body: JSON.stringify({ content: `>> [HISTORICAL_INTEL]: ${msg}` })
             }).then(() => {
-                alert(">> SIGNAL_SENT.\nTelemetry buffered.");
+                alert(">> SIGNAL_SENT.\nThe Archive has received your input.");
                 document.getElementById('userInput').value = '';
             });
         }
-    </script>
-</body>
-</html>
-
-            const rLine = document.createElement('div');
-            rLine.innerText = "SYS_" + Math.random().toString(16).slice(2,6).toUpperCase();
-            rightStream.prepend(rLine);
-            if(rightStream.children.length > 8) rightStream.lastChild.remove();
-        }, 850);
-
-        // Glitch Logic
-        setInterval(() => {
-            document.body.style.display = "none";
-            setTimeout(() => {
-                document.body.style.display = "block";
-                document.body.style.filter = "invert(1) contrast(150%)";
-                setTimeout(() => { document.body.style.filter = "none"; }, 40);
-            }, 30);
-        }, Math.random() * 8000 + 4000);
     </script>
 </body>
 </html>
