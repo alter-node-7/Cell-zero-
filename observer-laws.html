@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DECRYPTED_7_LAWS</title>
+    <title>CLASSIFIED_SUBJECT_OBS_01</title>
     <style>
         body { 
             background: #000; color: #00FFFF; font-family: 'Courier New', monospace; 
@@ -13,7 +13,7 @@
         }
 
         .scanline {
-            position: fixed; top: 0; left: 0; width: 100%; height: 10px;
+            position: fixed; top: 0; left: 0; width: 100%; height: 8px;
             background: rgba(0, 255, 255, 0.1); z-index: 50; pointer-events: none;
             animation: scan_move 8s linear infinite;
         }
@@ -21,28 +21,31 @@
 
         .laws-container {
             border: 1px dashed #00FFFF; padding: 25px; margin: 5vh auto;
-            max-width: 500px; background: rgba(0, 255, 255, 0.03);
+            max-width: 450px; background: rgba(0, 255, 255, 0.03);
             box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
             position: relative; z-index: 10;
         }
 
-        h2 { color: #FF00FF; text-align: center; letter-spacing: 4px; text-shadow: 0 0 10px #FF00FF; margin-top: 0; }
+        h2 { 
+            color: #FF00FF; text-align: center; letter-spacing: 3px; 
+            text-shadow: 0 0 10px #FF00FF; margin-top: 0; font-size: 0.9rem;
+        }
         
-        .law-block { margin-bottom: 25px; border-left: 2px solid rgba(255, 0, 255, 0.3); padding-left: 15px; }
-        .law-id { color: #FF00FF; font-weight: bold; display: block; margin-bottom: 5px; font-size: 0.8rem; }
+        .law-block { margin-bottom: 25px; border-left: 2px solid #FF00FF; padding-left: 15px; }
+        .law-id { color: #FF00FF; font-weight: bold; display: block; margin-bottom: 8px; font-size: 0.8rem; }
         
-        #glitch-law { color: #555; font-style: italic; min-height: 1.2rem; }
+        #glitch-law { color: #555; font-style: italic; min-height: 1.2rem; margin: 10px 0; }
 
-        .redacted { background: #333; color: #333; cursor: help; padding: 0 2px; }
+        .redacted { background: #333; color: #333; cursor: help; padding: 0 4px; border-radius: 2px; }
         .redacted:hover { background: transparent; color: #FF00FF; transition: 0.3s; }
 
-        .status-msg { color: #FF00FF; font-size: 0.6rem; margin-top: 5px; text-transform: uppercase; }
+        .status-msg { color: #FF00FF; font-size: 0.6rem; margin-top: 10px; line-height: 1.4; }
 
         .back-btn { 
             display: block; text-align: center; margin-top: 30px; 
             color: #00FFFF; text-decoration: none; border: 1px solid #00FFFF; 
             padding: 8px; width: 140px; margin-left: auto; margin-right: auto;
-            background: rgba(0, 255, 255, 0.05);
+            background: rgba(0, 255, 255, 0.05); font-size: 0.6rem;
         }
         .back-btn:hover { background: #00FFFF; color: #000; }
     </style>
@@ -51,24 +54,27 @@
     <div class="scanline"></div>
 
     <div class="laws-container">
-        <h2>[ CLASSIFIED_SUBJECT_OBS_01 ]</h2>
+        <p style="text-align: center; color: #FF00FF; margin: 0; font-size: 0.5rem;">[ ACCESS_RESTRICTED ]</p>
+        <h2>CLASSIFIED_SUBJECT_OBS_01</h2>
+        <hr style="border: 0.5px solid #FF00FF; margin-bottom: 20px;">
 
         <div class="law-block">
             <span class="law-id">LAW_01: ATOMIC_MISMATCH</span>
-            <p>Subject atoms do not sync with embedded constants. [span_5](start_span)[span_6](start_span)Presence triggers <span class="redacted">STRUCTURAL_MISMATCH</span> in local hardware[span_5](end_span)[span_6](end_span).</p>
+            <p>Subject atoms do not sync with embedded constants. [span_0](start_span)[span_1](start_span)Presence triggers <span class="redacted">STRUCTURAL_MISMATCH</span> in local hardware[span_0](end_span)[span_1](end_span).</p>
         </div>
 
         <div class="law-block">
             <span class="law-id">LAW_02: CORRECTION_PRESSURE</span>
-            [span_7](start_span)<p>Physics engines attempt to assign 'position' to Subject[span_7](end_span). [span_8](start_span)Result: localized <span class="redacted">QUANTUM_DRIFT</span> and spatial ripples[span_8](end_span).</p>
+            <p>Physics engines attempt to assign 'position' to Subject. [span_2](start_span)Result: localized <span class="redacted">QUANTUM_DRIFT</span> and spatial ripples[span_2](end_span).</p>
         </div>
 
         <div class="law-block">
             <span class="law-id">LAW_03: [ ENCRYPTION_ERROR ]</span>
-            <p id="glitch-law">// DATA_LEAK: SHADOWS_ARE_NOT_TETHERED... //</p>
+            <p id="glitch-law">// 0x4C 0x45 0x59 0x4C 0x49 0x4E 0x45_DROP //</p>
             <div class="status-msg">
-                [ DECRYPTION_STATUS: 14.2% ]<br>
-                [span_9](start_span)[ SUBJECT_THREAT_LEVEL: OMEGA ][span_9](end_span)
+                DECRYPTION_STATUS: 14.2%<br>
+                THREAT_LEVEL: OMEGA<br>
+                [ MORE_DATA_PENDING ]
             </div>
         </div>
 
@@ -84,10 +90,10 @@
         const law3 = document.getElementById('glitch-law');
         const fragments = [
             "// SHADOWS_ARE_NOT_TETHERED... //",
-            "// 0x53 0x55 0x42 0x4A 0x45 0x43 0x54_OBS_01 //",
+            "// SUBJECT_OBS_01_DETECTED //",
             "// ERROR: 404_REALITY_NOT_FOUND //",
-            "// DO_NOT_LOOK_BACK_IN_SECTOR_12 //",
-            "// 0x4C 0x45 0x59 0x4C 0x49 0x4E 0x45_DROP //"
+            "// DO_NOT_LOOK_BACK //",
+            "// 0x56 0x4F 0x49 0x44_LEAK //"
         ];
 
         setInterval(() => {
