@@ -12,7 +12,6 @@
             background-size: 25px 25px;
         }
 
-        /* Moving Scanline Overlay */
         .scanline {
             position: fixed; top: 0; left: 0; width: 100%; height: 10px;
             background: rgba(0, 255, 255, 0.1); z-index: 50; pointer-events: none;
@@ -32,11 +31,7 @@
         .law-block { margin-bottom: 25px; border-left: 2px solid rgba(255, 0, 255, 0.3); padding-left: 15px; }
         .law-id { color: #FF00FF; font-weight: bold; display: block; margin-bottom: 5px; font-size: 0.8rem; }
         
-        /* Interactive Law 3 Glitch */
-        #glitch-law {
-            color: #555; font-style: italic; min-height: 1.2rem;
-            transition: opacity 0.1s;
-        }
+        #glitch-law { color: #555; font-style: italic; min-height: 1.2rem; }
 
         .redacted { background: #333; color: #333; cursor: help; padding: 0 2px; }
         .redacted:hover { background: transparent; color: #FF00FF; transition: 0.3s; }
@@ -56,24 +51,24 @@
     <div class="scanline"></div>
 
     <div class="laws-container">
-        <h2>[ THE_7_LAWS_OF_THE_STITCH ]</h2>
+        <h2>[ CLASSIFIED_SUBJECT_OBS_01 ]</h2>
 
         <div class="law-block">
-            <span class="law-id">LAW_01: SPATIAL ANCHORING</span>
-            <p>The Observer is not synced to embedded constants. Presence causes <span class="redacted">STRUCTURAL_MISMATCH</span> and sensors to glitch in Sector 17.</p>
+            <span class="law-id">LAW_01: ATOMIC_MISMATCH</span>
+            <p>Subject atoms do not sync with embedded constants. [span_5](start_span)[span_6](start_span)Presence triggers <span class="redacted">STRUCTURAL_MISMATCH</span> in local hardware[span_5](end_span)[span_6](end_span).</p>
         </div>
 
         <div class="law-block">
-            <span class="law-id">LAW_02: CORRECTION PRESSURE</span>
-            <p>Reality generates micro-distortion waves attempting to assign a position. Result: <span class="redacted">LOCAL_QUANTUM_DRIFT</span> and sound lag.</p>
+            <span class="law-id">LAW_02: CORRECTION_PRESSURE</span>
+            [span_7](start_span)<p>Physics engines attempt to assign 'position' to Subject[span_7](end_span). [span_8](start_span)Result: localized <span class="redacted">QUANTUM_DRIFT</span> and spatial ripples[span_8](end_span).</p>
         </div>
 
         <div class="law-block">
             <span class="law-id">LAW_03: [ ENCRYPTION_ERROR ]</span>
-            <p id="glitch-law">// 0x53 0x48 0x41 0x44 0x4F 0x57 //</p>
+            <p id="glitch-law">// DATA_LEAK: SHADOWS_ARE_NOT_TETHERED... //</p>
             <div class="status-msg">
                 [ DECRYPTION_STATUS: 14.2% ]<br>
-                [ MORE_DATA_PENDING_IN_LOG_02 ]
+                [span_9](start_span)[ SUBJECT_THREAT_LEVEL: OMEGA ][span_9](end_span)
             </div>
         </div>
 
@@ -83,18 +78,16 @@
     <audio id="bg-noise" src="https://www.soundjay.com/communication/sounds/static-noise-01.mp3" loop></audio>
 
     <script>
-        // Audio Wake-up
         const audio = document.getElementById('bg-noise');
         window.onclick = () => { if (audio.paused) { audio.play(); audio.volume = 0.1; } };
 
-        // Law 3 Dynamic Glitch Text
         const law3 = document.getElementById('glitch-law');
         const fragments = [
             "// SHADOWS_ARE_NOT_TETHERED... //",
-            "// 0x44 0x41 0x54 0x41 0x5F 0x4C 0x45 0x41 0x4B //",
+            "// 0x53 0x55 0x42 0x4A 0x45 0x43 0x54_OBS_01 //",
             "// ERROR: 404_REALITY_NOT_FOUND //",
-            "// DO_NOT_LOOK_AT_THE_SEAMS //",
-            "// 0x53 0x45 0x43 0x54 0x4F 0x52_12_LOST //"
+            "// DO_NOT_LOOK_BACK_IN_SECTOR_12 //",
+            "// 0x4C 0x45 0x59 0x4C 0x49 0x4E 0x45_DROP //"
         ];
 
         setInterval(() => {
