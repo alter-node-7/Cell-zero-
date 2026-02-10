@@ -3,65 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ITEL_COMM_LINK_17B</title>
+    <title>UNMAPPED_LOG_17B</title>
     <style>
         body { 
             background: #020202; color: #00FF41; font-family: 'Courier New', monospace; 
             margin: 0; padding: 25px; font-size: 0.65rem; line-height: 1.4;
         }
         .street-ui {
-            border: 1px solid #111; padding: 15px; max-width: 420px; margin: 2vh auto;
-            background: rgba(0, 255, 65, 0.02); box-shadow: inset 0 0 10px #000;
+            border: 1px solid #222; padding: 15px; max-width: 420px; margin: 2vh auto;
+            background: rgba(0, 255, 65, 0.01);
         }
-        .packet-data { border-left: 1px solid #FF00FF; padding-left: 12px; margin: 20px 0; color: #FF00FF; }
-        
-        .ghost-char { animation: flicker 0.1s infinite; color: #FFF; font-weight: bold; }
-        @keyframes flicker { 0% { opacity: 0; } 50% { opacity: 1; } 100% { opacity: 0; } }
+        .glitch-text { animation: blink 0.05s infinite; color: #fff; }
+        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0; } 100% { opacity: 1; } }
 
-        /* Discord-Style Message System */
-        .msg-system { border-top: 1px solid #333; margin-top: 25px; padding-top: 15px; }
+        .packet-data { border-left: 1px solid #FF00FF; padding-left: 12px; margin: 25px 0; color: #FF00FF; }
+        
+        /* Subtle "Something is Wrong" UI */
+        .distorted-box { transform: skewX(-1deg); filter: blur(0.3px); }
+
+        .msg-system { border-top: 1px solid #111; margin-top: 25px; padding-top: 15px; }
         .msg-input { 
-            width: 100%; background: #000; border: 1px solid #00FF41; 
+            width: 100%; background: #000; border: 1px solid #333; 
             color: #00FF41; padding: 10px; font-family: inherit; font-size: 0.6rem;
             margin-bottom: 10px; outline: none; box-sizing: border-box;
         }
         .msg-btn { 
-            width: 100%; border: 1px solid #FF00FF; color: #FF00FF; 
+            width: 100%; border: 1px solid #333; color: #444; 
             background: transparent; padding: 5px; cursor: pointer; font-size: 0.55rem;
         }
-        .msg-btn:hover { background: #FF00FF; color: #000; }
-        
-        .back-btn { display: block; margin-top: 30px; color: #444; text-decoration: none; text-align: center; font-size: 0.5rem; }
+        .msg-btn:hover { border-color: #FF00FF; color: #FF00FF; }
     </style>
 </head>
 <body>
-    <div class="street-ui">
-        <p><strong>RECOVERED_FRAGMENT_17B:</strong><br>
-        [ STAMP: 14_YEARS_AGO ]</p>
+    <div class="street-ui distorted-box">
+        <p><strong>LOG_FRAGMENT_17B:</strong><br>
+        [ DATE: REDACTED ]<br>
+        [ STATUS: IMPOSSIBLE_EVENT ]</p>
+
+        <p>The vault lattice did not break. It did not melt. It simply <span class="glitch-text">CEASED</span> for 0.004ms. Forensic scanners reported a "Missing Variable" in the local geometry.</p>
 
         <div class="packet-data">
-            <strong>LOG_ENTRY_4402:</strong><br>
-            "The lattice transitioned from solid to <span class="ghost-char">PHASE</span>. It wasn't a breach; it was a <strong>Function Call</strong>. The Archive didn't open—it was told to move by an <span class="ghost-char">ADMIN</span>."
+            <strong>RECOVERED_TRACE:</strong><br>
+            "There is no entry log. There is no exit log. The room was empty, then it was occupied, then it was empty again. It’s like the universe <span class="glitch-text">FORGOT</span> the wall was there."
         </div>
 
-        <p>R: "I'm still scrubbing the noise from this packet. If anyone sees a pattern I'm missing, dump it here. Keep it encrypted."</p>
+        <p>R: "I've spent years staring at this static. No names. No faces. Just a hole in the world where a person should be. If you see the pattern, send it. Don't ask me why."</p>
 
         <div class="msg-system">
-            <input type="text" class="msg-input" placeholder=">> ENTER_SIGNAL_MESSAGE..." id="userInput">
-            <button class="msg-btn" onclick="sendToDiscord()">[ SEND_TO_ADMIN ]</button>
+            <input type="text" class="msg-input" placeholder=">> SEND_SIGNAL..." id="userInput">
+            <button class="msg-btn" onclick="sendToDiscord()">[ LOG_DATA ]</button>
         </div>
-
-        <a href="index.html" class="back-btn">[ TERMINATE_SESSION ]</a>
     </div>
 
     <script>
         function sendToDiscord() {
-            const msg = document.getElementById('userInput').value;
-            if (msg) {
-                // You can replace this with a real Discord Webhook URL later
-                alert(">> SIGNAL_RECEIVED.\n'Message logged in the Archive. Check the council logs for a response.'");
-                document.getElementById('userInput').value = '';
-            }
+            alert(">> SIGNAL_SENT.\n'The Archive is watching.'");
+            document.getElementById('userInput').value = '';
         }
     </script>
 </body>
