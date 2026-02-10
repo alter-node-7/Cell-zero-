@@ -3,47 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SYS_RECOVERY_17B // THE_SEARCH</title>
+    <title>RECOVERY_MODE // FRAGMENT_17B</title>
     <style>
         body { 
             background: #020202; color: #00FF41; font-family: 'Courier New', monospace; 
             margin: 0; padding: 25px; font-size: 0.65rem; line-height: 1.4;
         }
         .street-ui {
-            border: 1px solid #222; padding: 15px; max-width: 420px; margin: 2vh auto;
-            background: rgba(0, 255, 65, 0.01);
+            border: 1px solid #222; padding: 20px; max-width: 450px; margin: 2vh auto;
+            background: rgba(0, 255, 65, 0.01); box-shadow: 0 0 20px rgba(0,0,0,1);
         }
-        .rohan-intercept { border-left: 2px solid #FF00FF; padding-left: 12px; margin: 20px 0; color: #FF00FF; }
+        .encrypted-block { border-left: 2px solid #FF00FF; padding-left: 15px; margin: 25px 0; color: #FF00FF; }
+        .glitch { animation: blink 0.1s infinite; }
+        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.7; } 100% { opacity: 1; } }
+
         .msg-input {
             width: 100%; background: #000; border: 1px solid #333; color: #00FF41;
-            padding: 10px; font-family: inherit; font-size: 0.6rem; margin-top: 15px;
+            padding: 12px; font-family: inherit; font-size: 0.6rem; margin-top: 15px; outline: none;
         }
-        .msg-btn { width: 100%; border: 1px solid #333; color: #444; background: transparent; padding: 5px; cursor: pointer; }
+        .msg-btn { 
+            width: 100%; border: 1px solid #333; color: #444; background: transparent; 
+            padding: 8px; cursor: pointer; margin-top: 5px; font-family: inherit;
+        }
         .msg-btn:hover { border-color: #FF00FF; color: #FF00FF; }
     </style>
 </head>
 <body>
     <div class="street-ui">
-        <strong>ARCHIVE_FILE: 2012_INCIDENT_REPORT</strong><br>
-        [ STATUS: RECOVERING_BYTES... ]
+        <strong class="glitch">ARCHIVE_FILE: 2012_INCIDENT_REPORT</strong><br>
+        [ STATUS: RECOVERY_SUCCESSFUL ]
 
         <p>
-            Report confirm karti hai ki Sub-basement 12 ek "hollow stone vault" tha jo kisi map par nahi tha. Peacekeepers ko wahan 8 bodies mili thin jinka decay pause ho gaya tha, jaise ki waqt wahan ruk gaya ho.
+            <strong>SUB-BASEMENT 12:</strong> Surveillance logs from 14 years ago confirm a hollow stone vault undetected by tectonic scans. First responders identified eight biological samples in a static circular formation—no decay recorded despite age.
         </p>
 
-        <div class="rohan-intercept">
-            <strong>ROHAN:</strong><br>
-            "Maine ye file 14 saal baad crack ki hai. Main bas ye dhoondne ki koshish kar raha hoon ki us raat wahan hua kya tha. Wo 9 objects jo pedestal se gayab hue—unhe 'unidentified' mark kiya gaya tha. Agar wo hardware keys hain, toh wo kisi cheez ko unlock karne ke liye nikaali gayi hain. Help me connect the dots."
+        <div class="encrypted-block">
+            <strong>OVERRIDE_LOG [ID: R]:</strong><br>
+            "Encryption cracked. Analyzing the gap in the 2012 timeline. The central pedestal was found void of nine specific variables. If these are not artifacts, but hardware keys, the 'Unzipping' event was not a breach—it was a planned activation. Data required on Subject OBS-01 displacement."
         </div>
 
         <p style="opacity: 0.6;">
-            [SYSTEM_NOTE]: Air density in 2012 was reported as 'heavy' causing immediate memory loss to the first responders. Rickshaw 661 is the only witness that hasn't been wiped.
+            [FIELD_NOTE]: Atmospheric density remains critical. First responders suffered acute memory wipe upon entry. Rickshaw 661 dashcam remains the primary unaltered record of the sector exit.
         </p>
 
-        <input type="text" id="userInput" class="msg-input" placeholder=">> SEND_DUMP_COORDS...">
+        <input type="text" id="userInput" class="msg-input" placeholder=">> INPUT_STREET_TELEMETRY...">
         <button class="msg-btn" onclick="sendToDiscord()">[ TRANSMIT_SIGNAL ]</button>
 
-        <a href="index.html" style="display:block; text-align:center; margin-top:30px; color:#333; text-decoration:none; font-size:0.5rem;"><< TERMINATE_SESSION</a>
+        <a href="index.html" style="display:block; text-align:center; margin-top:40px; color:#333; text-decoration:none; font-size:0.5rem; letter-spacing: 2px;"><< TERMINATE_SESSION</a>
     </div>
 
     <script>
@@ -54,56 +60,15 @@
             fetch(webhookURL, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ content: `>> [RESEARCH_TIP]: ${msg}` })
+                body: JSON.stringify({ content: `>> [RECOVERY_INTEL]: ${msg}` })
             }).then(() => {
-                alert(">> SIGNAL_SENT.\nRohan is reviewing your data.");
+                alert(">> SIGNAL_SENT.\nTelemetry buffered.");
                 document.getElementById('userInput').value = '';
             });
         }
     </script>
 </body>
 </html>
-
-    <audio id="bg-noise" src="https://www.soundjay.com/communication/sounds/static-noise-01.mp3" loop></audio>
-
-    <script>
-        const audio = document.getElementById('bg-noise');
-        window.onclick = () => { if (audio.paused) { audio.play(); audio.volume = 0.15; } };
-
-        // Discord Webhook Logic
-        function sendToDiscord() {
-            const msg = document.getElementById('userInput').value;
-            const webhookURL = "https://discord.com/api/webhooks/1470752513950224437/bfiMZverN0HkFyqasoYQLHX8QyGDZFl6pEE6HEoY7kzlnKk_w0sIduMxABTWtfr0McD6"; 
-
-            if (!msg) {
-                alert(">> ERROR: Signal empty.");
-                return;
-            }
-
-            fetch(webhookURL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    content: `>> [INTEL_STREET_TIP]\n**Node**: Sector 17 Monitor\n**Intel**: ${msg}`
-                })
-            }).then(() => {
-                alert(">> TIP_LOGGED.\n'R' is reviewing the data.");
-                document.getElementById('userInput').value = '';
-            }).catch(() => {
-                alert(">> SIGNAL_JAMMED. Try again.");
-            });
-        }
-
-        // Scrolling Log Streams
-        const leftStream = document.getElementById('stream-left');
-        const rightStream = document.getElementById('stream-right');
-        const hexCodes = ["0xFA", "0x01", "0x99", "ERR", "VOID", "STITCH", "LEAK"];
-
-        setInterval(() => {
-            const lLine = document.createElement('div');
-            lLine.innerText = hexCodes[Math.floor(Math.random() * hexCodes.length)] + "_" + Math.floor(Math.random()*999);
-            leftStream.prepend(lLine);
-            if(leftStream.children.length > 8) leftStream.lastChild.remove();
 
             const rLine = document.createElement('div');
             rLine.innerText = "SYS_" + Math.random().toString(16).slice(2,6).toUpperCase();
