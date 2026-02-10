@@ -8,61 +8,66 @@
         body { 
             background: #000; color: #00FFFF; font-family: 'Courier New', monospace; 
             margin: 0; padding: 12px; overflow: hidden; height: 100vh; font-size: 0.65rem;
-            background-image: radial-gradient(circle, #111 1px, transparent 1px);
-            background-size: 20px 20px;
         }
 
-        /* 1. MOVING SCANLINE FIX */
+        /* 1. MOVING SCANLINE */
         .scanline {
-            position: fixed; top: 0; left: 0; width: 100%; height: 15px;
-            background: rgba(0, 255, 255, 0.15);
-            box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
-            z-index: 10; pointer-events: none;
+            position: fixed; top: 0; left: 0; width: 100%; height: 12px;
+            background: rgba(0, 255, 255, 0.2);
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+            z-index: 50; pointer-events: none;
             animation: scan_move 6s linear infinite;
         }
-        @keyframes scan_move {
-            0% { top: -20px; }
-            100% { top: 100vh; }
-        }
+        @keyframes scan_move { 0% { top: -20px; } 100% { top: 100vh; } }
 
-        /* 2. MOVING LOGS FIX */
+        /* 2. INFINITE SCROLLING LOGS */
         .log-stream { 
             position: fixed; bottom: 20px; width: 120px; height: 100px;
-            overflow: hidden; font-size: 0.5rem; opacity: 0.5; pointer-events: none;
+            overflow: hidden; font-size: 0.5rem; opacity: 0.4; pointer-events: none;
         }
         #stream-left { left: 15px; }
         #stream-right { right: 15px; text-align: right; }
+        .scrolling-content { display: flex; flex-direction: column; animation: scroll_logs 12s linear infinite; }
+        @keyframes scroll_logs { 0% { transform: translateY(0); } 100% { transform: translateY(-50%); } }
 
-        .scrolling-content {
-            display: flex; flex-direction: column;
-            animation: scroll_logs 10s linear infinite;
+        /* 3. COORDINATE MODAL (THE MINI WINDOW) */
+        #modal-overlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8); z-index: 200; align-items: center; justify-content: center;
         }
-        @keyframes scroll_logs {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(-50%); }
+        .mini-window {
+            width: 250px; background: #000; border: 1px solid #FF00FF;
+            padding: 15px; box-shadow: 0 0 20px #FF00FF; text-align: left;
         }
+        .close-btn { color: #FF00FF; float: right; cursor: pointer; font-weight: bold; }
 
-        /* Header & Buttons (High Z-Index to stay clickable) */
+        /* Header & Buttons */
         .header { display: flex; justify-content: space-between; position: relative; z-index: 100; }
-        .btn { 
-            color: #00ffff; text-decoration: none; border: 1px solid #00ffff; 
-            padding: 5px 10px; background: rgba(0, 255, 255, 0.1); font-size: 0.6rem;
-        }
+        .btn { color: #00ffff; text-decoration: none; border: 1px solid #00ffff; padding: 5px 10px; background: rgba(0, 255, 255, 0.1); font-size: 0.6rem; }
 
-        /* Center Display */
+        /* Center Layout */
         .center-box { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; width: 100%; }
         h1 { font-size: 1.8rem; letter-spacing: 5px; margin: 0; color: #fff; text-shadow: 2px 0 #ff00ff, -2px 0 #00ffff; }
-        .coords { color: #ff00ff; margin-top: 10px; font-weight: bold; border-bottom: 1px dashed #ff00ff; display: inline-block; }
+        .coords { color: #ff00ff; margin-top: 10px; font-weight: bold; border-bottom: 1px dashed #ff00ff; cursor: pointer; display: inline-block; }
     </style>
 </head>
 <body>
     <div class="scanline"></div>
 
-    <div class="header">
-        <div style="opacity: 0.6;">
-            [0x01] SYNC_START<br>
-            [0x12] ATOMIC_SYNC: <span style="color:red">FAILED</span>
+    <div id="modal-overlay">
+        <div class="mini-window">
+            <span class="close-btn" onclick="closeModal()">[X]</span>
+            <p style="color: #FF00FF; margin-top: 0;">// OBSERVATION_LOG //</p>
+            <p style="color: #00FFFF; font-size: 0.55rem;">
+                LOCATION: SECTOR 17<br>
+                INCIDENT: Subject walked through a 4ft concrete barrier. Matter behaved as a non-Newtonian fluid. No structural damage detected.<br><br>
+                STATUS: <span style="color: red;">UNEXPLAINED</span>
+            </p>
         </div>
+    </div>
+
+    <div class="header">
+        <div style="opacity: 0.6;">[0x01] SYNC_START<br>[0x12] ATOMIC_SYNC: <span style="color:red">FAILED</span></div>
         <div style="text-align: right;">
             <a href="LOG_ARCHIVE_01.html" style="color:#FF00FF; text-decoration:none;">[[ ACCESS_LOG ]]</a><br><br>
             <a href="observer-laws.html" class="btn">[DECRYPT_WEAVE]</a>
@@ -71,35 +76,21 @@
 
     <div class="center-box">
         <h1>SUBSTRATE_VOID</h1>
-        <div class="coords">30.7339° N, 76.7794° E</div>
+        <div class="coords" onclick="openModal()">30.7339° N, 76.7794° E</div>
         <div style="margin-top: 15px; opacity: 0.6;">FABRIC_INTEGRITY: 44.2%<br>STITCH_DRIFT: ACTIVE</div>
     </div>
 
-    <div id="stream-left" class="log-stream">
-        <div class="scrolling-content">
-            VOID_84<br>0x99_454<br>STITCH_562<br>LEAK_985<br>VOID_84<br>0x99_454<br>STITCH_562<br>LEAK_985
-        </div>
-    </div>
-
-    <div id="stream-right" class="log-stream">
-        <div class="scrolling-content">
-            SYS_B7B7<br>SYS_51E6<br>SYS_DDC7<br>SYS_3427<br>SYS_B7B7<br>SYS_51E6<br>SYS_DDC7<br>SYS_3427
-        </div>
-    </div>
+    <div id="stream-left" class="log-stream"><div class="scrolling-content">VOID_84<br>0x99_454<br>STITCH_562<br>LEAK_985<br>VOID_84<br>0x99_454<br>STITCH_562<br>LEAK_985</div></div>
+    <div id="stream-right" class="log-stream"><div class="scrolling-content">SYS_B7B7<br>SYS_51E6<br>SYS_DDC7<br>SYS_3427<br>SYS_B7B7<br>SYS_51E6<br>SYS_DDC7<br>SYS_3427</div></div>
 
     <audio id="bg-noise" src="https://www.soundjay.com/communication/sounds/static-noise-01.mp3" loop></audio>
 
     <script>
         const audio = document.getElementById('bg-noise');
-        window.onclick = () => {
-            if (audio.paused) { audio.play(); audio.volume = 0.15; }
-        };
+        window.onclick = () => { if (audio.paused) { audio.play(); audio.volume = 0.15; } };
 
-        // Glitch flicker
-        setInterval(() => {
-            document.body.style.filter = "invert(1)";
-            setTimeout(() => { document.body.style.filter = "none"; }, 40);
-        }, Math.random() * 8000 + 4000);
+        function openModal() { document.getElementById('modal-overlay').style.display = 'flex'; }
+        function closeModal() { document.getElementById('modal-overlay').style.display = 'none'; }
     </script>
 </body>
 </html>
