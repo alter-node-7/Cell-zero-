@@ -7,7 +7,7 @@
     <style>
         body { 
             background: #000; color: #00FFFF; font-family: 'Courier New', monospace; 
-            margin: 0; padding: 12px; overflow: hidden; height: 100vh; font-size: 0.6rem;
+            margin: 0; padding: 12px; overflow: hidden; height: 100vh; font-size: 0.65rem;
             background-image: radial-gradient(circle, #111 1px, transparent 1px);
             background-size: 20px 20px;
         }
@@ -19,49 +19,54 @@
             background-size: 100% 3px, 3px 100%; pointer-events: none; z-index: 10;
         }
 
-        .telemetry { color: rgba(0, 255, 255, 0.35); line-height: 1.1; font-size: 0.55rem; }
+        /* Horizontal Divider */
+        .hr-line {
+            width: 100%; height: 1px; background: rgba(0, 255, 255, 0.4);
+            margin: 15px 0; box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+            position: relative; z-index: 5;
+        }
+
+        .telemetry { color: rgba(0, 255, 255, 0.4); line-height: 1.2; font-size: 0.6rem; }
         .alert-red { color: #FF0000; font-weight: bold; animation: pulse 0.8s infinite; }
         @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
 
-        /* Data Streams in Corners */
+        /* Larger Scrolling Logs */
         .log-stream {
-            position: fixed; bottom: 10px; width: 80px; height: 150px;
-            overflow: hidden; font-size: 0.45rem; color: rgba(0, 255, 255, 0.2);
+            position: fixed; bottom: 20px; width: 120px; height: 180px;
+            overflow: hidden; font-size: 0.75rem; color: rgba(0, 255, 255, 0.25);
             display: flex; flex-direction: column-reverse; pointer-events: none;
+            font-weight: bold;
         }
-        #stream-left { left: 10px; }
-        #stream-right { right: 10px; text-align: right; }
+        #stream-left { left: 15px; }
+        #stream-right { right: 15px; text-align: right; }
 
         .header { display: flex; justify-content: space-between; position: relative; z-index: 15; }
         .center-box {
-            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            position: absolute; top: 55%; left: 50%; transform: translate(-50%, -50%);
             text-align: center; width: 100%; z-index: 2;
         }
 
         h1 { 
-            font-size: 1.7rem; letter-spacing: 5px; margin: 0; color: #fff;
+            font-size: 1.8rem; letter-spacing: 6px; margin: 0; color: #fff;
             text-shadow: 2px 0 #ff00ff, -2px 0 #00ffff;
         }
 
         .coords { 
-            color: #ff00ff; margin-top: 8px; font-weight: bold; cursor: help;
+            color: #ff00ff; margin-top: 10px; font-weight: bold; cursor: help;
             display: inline-block; border-bottom: 1px dashed #ff00ff;
         }
 
         .btn { 
             color: #00ffff; text-decoration: none; border: 1px solid #00ffff; 
-            padding: 4px 8px; background: rgba(0, 255, 255, 0.1); font-size: 0.55rem;
+            padding: 5px 10px; background: rgba(0, 255, 255, 0.1); font-size: 0.6rem;
             display: inline-block;
         }
 
         .coords:active::after, .coords:hover::after {
             content: "REPORT_30.7N: Matter behaving as non-Newtonian fluid. Concrete behaving like a curtain in Sector 17.";
-            position: absolute; bottom: 25px; left: 50%; transform: translateX(-50%);
+            position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
             background: #FF00FF; color: #000; padding: 10px; width: 180px; font-size: 0.55rem; border: 1px solid #fff; z-index: 20;
         }
-
-        .interference { position: fixed; color: #ff00ff; font-size: 0.5rem; pointer-events: none; z-index: 5; animation: vanish 2s forwards; }
-        @keyframes vanish { 0% { opacity: 0.8; } 100% { opacity: 0; transform: translateY(-20px); } }
     </style>
 </head>
 <body>
@@ -82,6 +87,8 @@
         </div>
     </div>
 
+    <div class="hr-line"></div>
+
     <div class="center-box">
         <div class="telemetry">[[ INITIATE_FABRIC_ANALYSIS ]]</div>
         <h1>SUBSTRATE_VOID</h1>
@@ -95,31 +102,29 @@
         const audio = document.getElementById('bg-noise');
         window.onclick = () => { if (audio.paused) { audio.play(); audio.volume = 0.15; } };
 
-        // Corner Stream Logic
         const leftStream = document.getElementById('stream-left');
         const rightStream = document.getElementById('stream-right');
-        const hex = ["0xFA", "0x01", "0x99", "ERR", "SYNC", "VOID", "0xCC", "STITCH"];
+        const hex = ["0xFA", "0x01", "0x99", "ERR", "SYNC", "VOID", "0xCC", "STITCH", "LEAK"];
 
         setInterval(() => {
             const lLine = document.createElement('div');
             lLine.innerText = hex[Math.floor(Math.random() * hex.length)] + "_" + Math.floor(Math.random()*999);
             leftStream.prepend(lLine);
-            if(leftStream.children.length > 10) leftStream.lastChild.remove();
+            if(leftStream.children.length > 8) leftStream.lastChild.remove();
 
             const rLine = document.createElement('div');
-            rLine.innerText = "DATA_" + Math.random().toString(16).slice(2,6).toUpperCase();
+            rLine.innerText = "SYS_" + Math.random().toString(16).slice(2,6).toUpperCase();
             rightStream.prepend(rLine);
-            if(rightStream.children.length > 10) rightStream.lastChild.remove();
+            if(rightStream.children.length > 8) rightStream.lastChild.remove();
         }, 800);
 
-        // Millisecond Glitch
         setInterval(() => {
             document.body.style.display = "none";
             setTimeout(() => {
                 document.body.style.display = "block";
                 document.body.style.filter = "invert(1) contrast(150%)";
                 setTimeout(() => { document.body.style.filter = "none"; }, 40);
-            }, 25);
+            }, 30);
         }, Math.random() * 8000 + 4000);
     </script>
 </body>
