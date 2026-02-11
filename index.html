@@ -71,16 +71,19 @@
 </head>
 <body>
     <div class="monitor-overlay"></div>
-    <div id="stability-container" style="position:fixed; top:10px; left:50%; transform:translateX(-50%); width:180px; height:4px; border:1px solid rgba(0, 255, 255, 0.3); z-index:110;">
-    <div id="stability-bar" style="width:100%; height:100%; background:#00FFFF; transition: width 0.5s, background 0.5s;"></div>
-    <div style="font-size:7px; color:rgba(0, 255, 255, 0.5); text-align:center; margin-top:2px; letter-spacing:1px;">INTEGRITY_STITCH_SYNC</div>
-    </div>
-<div id="anaya-ghost" style="position:fixed; top:0; left:0; width:100%; height:100%; background: url('https://raw.githubusercontent.com/alter-node-7/Cell-zero/main/ghost_silhouette.png') center/contain no-repeat; opacity:0; pointer-events:none; z-index:100; mix-blend-mode: screen; filter: brightness(1.2) contrast(1.2);"></div>
-    0.5) invert(1);"></div>
-    <div class="hr-line"></div> <div id="stream-left" class="log-stream"></div>
-    <div id="stream-right" class="log-stream"></div>
 
-    <div class="header">
+<div id="stability-container" style="position:fixed; top:0; left:0; width:100%; height:3px; background:rgba(0,255,255,0.1); z-index:200;">
+    <div id="stability-bar" style="width:100%; height:100%; background:#00FFFF; box-shadow: 0 0 10px #00FFFF;"></div>
+</div>
+
+<div id="anaya-ghost" style="position:fixed; top:0; left:0; width:100%; height:100%; background: url('https://raw.githubusercontent.com/alter-node-7/Cell-zero/main/ghost_silhouette.png') center/contain no-repeat; opacity:0; pointer-events:none; z-index:150; mix-blend-mode: screen; filter: brightness(1.2) contrast(1.2);"></div>
+
+<div class="hr-line"></div>
+<div id="stream-left" class="log-stream"></div>
+<div id="stream-right" class="log-stream"></div>
+
+<div class="header">
+
         <div class="telemetry">
             [0x01] SYNC_START<br>
             [0x04] SCAN_SECTOR_17...<br>
@@ -129,36 +132,33 @@
             }, 30);
         }, Math.random() * 8000 + 4000);
         // Anaya Ghost-Signal (MEM-01) Logic
-// She appears where reality is rethreading (Law 06)
 setInterval(() => {
     const ghost = document.getElementById('anaya-ghost');
-    // 2% chance to flicker every 4 seconds to maintain the mystery
     if (Math.random() > 0.98) { 
-        ghost.style.opacity = "0.15"; // Faint visual echo
-        setTimeout(() => { 
-            ghost.style.opacity = "0"; 
-        }, 120); // Vanishes in 0.12 seconds
+        ghost.style.opacity = "0.15"; 
+        setTimeout(() => { ghost.style.opacity = "0"; }, 120); 
     }
 }, 4000);
-        let realitySync = 100;
+
+// Law 07: Reality Sync & Ejection Logic
+let realitySync = 100;
 const syncBar = document.getElementById('stability-bar');
 
 setInterval(() => {
     if (realitySync > 0) {
-        realitySync -= 1; // Drops slowly
+        realitySync -= 0.5; 
         syncBar.style.width = realitySync + "%";
         
-        // Law 02: Correction Pressure kicks in at low stability
-        if (realitySync < 35) {
-            syncBar.style.background = "#FF00FF"; // Turns magenta (distortion color)
-            document.body.style.filter = `contrast(${100 + Math.random() * 50}%)`; 
+        if (realitySync < 30) {
+            syncBar.style.background = "#FF00FF"; // Distortion Magenta
+            document.body.style.filter = `contrast(${100 + Math.random() * 40}%) brightness(${1 - Math.random() * 0.2})`;
         }
     } else {
-        // Law 07: Snap-In Trigger - The Universe Ejects the Reader
-        document.body.innerHTML = "<div style='background:#000; color:#FF0000; height:100vh; display:flex; align-items:center; justify-content:center; text-align:center; font-family:monospace;'>[CRITICAL_ERROR]<br>OBSERVER_SYNC_TERMINATED<br>RESTARTING_SIMULATION...</div>";
-        setTimeout(() => { window.location.reload(); }, 4000);
+        document.body.innerHTML = "<div style='background:#000; color:#FF0000; height:100vh; display:flex; align-items:center; justify-content:center; text-align:center; font-family:monospace; letter-spacing:5px;'>[CRITICAL_ERROR]<br>OBSERVER_EJECTED<br>RELOADING_SIMULATION...</div>";
+        setTimeout(() => { window.location.reload(); }, 3500);
     }
-}, 3000);
+}, 2000);
+
         
     </script>
 </body>
